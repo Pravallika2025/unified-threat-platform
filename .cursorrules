@@ -1,0 +1,29 @@
+# Cursor rules — Threat Detection Platform
+
+## Architecture
+Modular monolith, hexagonal-lite. Every module under `backend/app/modules/<name>/` has:
+  domain/          pure entities + rules — NO fastapi, NO sqlalchemy, NO cross-module imports
+  application/     services / use-cases — orchestration lives here
+  infrastructure/  sqlalchemy models, repositories, external adapters
+  schemas.py       pydantic DTOs (the API boundary)
+
+Dependency direction: api -> application -> domain. Infrastructure implements, never drives.
+Modules communicate ONLY via another module's `application/*_service.py`.
+Never import another module's `infrastructure/repository.py`.
+
+## Non-negotiables (from the project charter)
+- Destructive response actions MUST route through `response/application/approval_gate.py`.
+  Never add an executor path that bypasses it.
+- Every mutating operation writes an AuditEntry via `audit/application/audit_service.py`.
+  The audit chain is append-only and hash-linked — never add update/delete on AuditEntry.
+- Ingestion must pass `ingestion/application/consent_guard.py`. No unauthorized sources.
+- Never seed or return fabricated metrics in production paths. Demo data lives in
+  `app/seeds/demo_data.py` and is gated behind ENVIRONMENT=development.
+
+## Conventions
+- Backend: Python 3.11+, async SQLAlchemy 2.0, Pydantic v2. Type hints everywhere.
+- Detection logic goes in `detection-content/rules/*.yml` as data, not Python, unless
+  it needs a new engine type.
+- Frontend: React 18 + TS strict. One folder per screen in `src/features/`.
+  Import features only via their `index.ts`. Permission checks use `<Can do="...">`.
+- API responses are Pydantic schemas — never return ORM objects directly.

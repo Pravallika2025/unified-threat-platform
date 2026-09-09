@@ -1,0 +1,21 @@
+id: AUTH-0003
+title: Administrative account used outside business hours
+description: >
+  Not malicious on its own. Useful as a correlation signal — pairs well with
+  lateral movement or exfiltration alerts on the same entity.
+severity: medium
+enabled: true
+environments: [hospital, government, enterprise, airport]
+source_types: [windows_security, linux_auth, vpn]
+attack:
+  tactic: TA0001
+  technique: T1078
+logic:
+  type: match
+  where:
+    - { field: user_name, op: regex, value: "(admin|root|administrator|svc_)" }
+    - { field: event_outcome, op: eq, value: success }
+risk:
+  impact: 3
+  likelihood: 2
+response_suggestions: [monitor]

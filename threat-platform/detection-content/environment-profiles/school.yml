@@ -1,0 +1,11 @@
+risk_multiplier: 0.95
+auto_response_allowed: false
+enabled_rule_categories: [all]
+critical_assets:
+  - student-records
+  - safeguarding
+  - finance
+business_hours: [7, 18]
+notes: >
+  Minors' data. Access to student-record systems should be alerted on generously,
+  and any incident touching safeguarding data escalates to a named person.

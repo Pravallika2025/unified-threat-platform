@@ -1,0 +1,23 @@
+id: AUTH-0002
+title: Successful login immediately following repeated failures
+description: >
+  Often the moment a brute force succeeds. Treated as its own detection because the
+  successful event is what matters for response, not the noise that preceded it.
+severity: critical
+enabled: true
+environments: [all]
+source_types: [all]
+attack:
+  tactic: TA0001
+  technique: T1078
+logic:
+  type: threshold
+  where:
+    - { field: event_category, op: eq, value: authentication }
+  group_by: [user_name]
+  count: 12
+  window: 10m
+risk:
+  impact: 4
+  likelihood: 3
+response_suggestions: [escalate, disable_account]

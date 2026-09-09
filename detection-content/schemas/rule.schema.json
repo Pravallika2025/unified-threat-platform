@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Detection Rule",
+  "type": "object",
+  "required": ["id", "title", "severity", "logic"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[A-Z]+-[0-9]{4}$" },
+    "title": { "type": "string", "minLength": 5 },
+    "description": { "type": "string" },
+    "severity": { "enum": ["critical", "high", "medium", "low", "info"] },
+    "enabled": { "type": "boolean" },
+    "environments": { "type": "array", "items": { "type": "string" } },
+    "source_types": { "type": "array", "items": { "type": "string" } },
+    "attack": {
+      "type": "object",
+      "properties": {
+        "tactic": { "type": "string", "pattern": "^TA[0-9]{4}$" },
+        "technique": { "type": "string", "pattern": "^T[0-9]{4}(\\.[0-9]{3})?$" }
+      }
+    },
+    "logic": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": { "enum": ["threshold", "match", "sequence", "anomaly"] },
+        "where": { "type": "array" },
+        "group_by": { "type": "array", "items": { "type": "string" } },
+        "count": { "type": "integer", "minimum": 1 },
+        "window": { "type": "string", "pattern": "^[0-9]+[smhd]$" }
+      }
+    },
+    "risk": { "type": "object" },
+    "response_suggestions": { "type": "array", "items": { "type": "string" } }
+  }
+}

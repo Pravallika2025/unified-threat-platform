@@ -1,0 +1,10 @@
+risk_multiplier: 1.35
+auto_response_allowed: false
+enabled_rule_categories: [all]
+critical_assets:
+  - citizen-data
+  - records
+  - finance
+  - identity
+business_hours: [8, 18]
+notes: Retention and evidence-handling requirements are usually statutory here.
