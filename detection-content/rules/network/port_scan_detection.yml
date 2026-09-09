@@ -1,0 +1,21 @@
+id: NET-0001
+title: Port scan from a single source
+description: Many connection attempts across different ports from one source address.
+severity: medium
+enabled: true
+environments: [all]
+source_types: [firewall, ids_ips, router]
+attack:
+  tactic: TA0007
+  technique: T1046
+logic:
+  type: threshold
+  where:
+    - { field: event_outcome, op: eq, value: failure }
+  group_by: [source_ip]
+  count: 30
+  window: 2m
+risk:
+  impact: 2
+  likelihood: 4
+response_suggestions: [monitor, block_ip]

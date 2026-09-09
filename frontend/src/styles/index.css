@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    color-scheme: dark;
+    background-color: #070B11;
+  }
+  
+  body {
+    @apply bg-ground text-ink font-sans antialiased min-h-screen selection:bg-accent/30 selection:text-white;
+    background-image: 
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.08), transparent),
+      radial-gradient(circle at 100% 100%, rgba(16, 185, 129, 0.03), transparent 40%),
+      radial-gradient(circle at 0% 50%, rgba(249, 115, 22, 0.02), transparent 30%);
+    background-attachment: fixed;
+  }
+
+  /* Accessible focus indicators with neon cyber ring */
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent/80 ring-offset-2 ring-offset-ground;
+  }
+
+  /* Custom dark cyber scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #070B11;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1E2E44;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2A3F5C;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply text-eyebrow uppercase tracking-widest text-muted font-semibold;
+  }
+
+  .panel {
+    @apply bg-panel/85 backdrop-blur-md border border-line/80 rounded-xl shadow-glass transition-all duration-200;
+  }
+
+  .panel-interactive {
+    @apply panel hover:border-lineHover hover:shadow-glow-accent/10;
+  }
+
+  .data {
+    @apply font-mono text-[0.8125rem] tabular-nums tracking-tight;
+  }
+
+  .cyber-glow {
+    box-shadow: 0 0 15px -2px rgba(59, 130, 246, 0.25);
+  }
+
+  .badge-pulse {
+    position: relative;
+  }
+  .badge-pulse::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: currentColor;
+    opacity: 0.25;
+    animation: beacon 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

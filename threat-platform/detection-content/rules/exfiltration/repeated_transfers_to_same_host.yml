@@ -1,0 +1,21 @@
+id: EXFIL-0002
+title: Repeated outbound transfers to one destination
+description: Slow-drip exfiltration that stays under any single-transfer threshold.
+severity: high
+enabled: true
+environments: [all]
+source_types: [firewall, siem]
+attack:
+  tactic: TA0010
+  technique: T1048
+logic:
+  type: threshold
+  where:
+    - { field: event_category, op: eq, value: network }
+  group_by: [destination_ip]
+  count: 25
+  window: 30m
+risk:
+  impact: 4
+  likelihood: 3
+response_suggestions: [monitor, escalate]

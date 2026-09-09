@@ -1,0 +1,17 @@
+# Clinical systems: patient safety means a false negative costs more than a false
+# positive, but automated blocking is never allowed — a blocked clinical device is
+# itself a patient-safety event.
+risk_multiplier: 1.3
+auto_response_allowed: false
+enabled_rule_categories: [all]
+critical_assets:
+  - pacs
+  - emr
+  - ehr
+  - radiology
+  - icu
+  - pharmacy
+business_hours: [0, 24]
+notes: >
+  Operates 24/7, so off-hours heuristics do not apply. Medical devices often use
+  legacy protocols — expect noise from network rules and tune before enabling.

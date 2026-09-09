@@ -1,0 +1,21 @@
+# Multi-stage patterns. Consumed by CorrelationService once sequence support lands.
+# TODO: implement the sequence engine, then enable these.
+- id: SEQ-0001
+  title: Credential access followed by lateral movement
+  enabled: false
+  window: 60m
+  entity: source_ip
+  stages:
+    - { rule_id: AUTH-0001 }
+    - { rule_id: AUTH-0002 }
+    - { tactic: TA0008 }
+
+- id: SEQ-0002
+  title: Initial access to exfiltration
+  enabled: false
+  window: 240m
+  entity: user_name
+  stages:
+    - { tactic: TA0001 }
+    - { tactic: TA0007 }
+    - { tactic: TA0010 }

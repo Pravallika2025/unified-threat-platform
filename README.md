@@ -1,0 +1,397 @@
+# 🛡️ Unified Multi-Environment Cyber Threat Detection & Response Platform
+
+<div align="center">
+
+![Platform Banner](https://img.shields.io/badge/Security-Threat%20Detection%20Platform-red?style=for-the-badge&logo=shield&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React-18+-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5+-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+
+**A full-stack, enterprise-grade cybersecurity platform for real-time threat detection, incident response, and audit compliance.**
+
+[📖 Documentation](#documentation) • [🚀 Quick Start](#quick-start) • [🎯 Features](#features) • [🏗️ Architecture](#architecture) • [📸 Screenshots](#screenshots)
+
+</div>
+
+---
+
+## 🎯 Features
+
+### 🔐 Authentication & Access Control
+- JWT-based authentication with refresh tokens
+- Role-Based Access Control (RBAC): Super Admin, Analyst, Viewer, Environment Admin
+- Multi-environment isolation and management
+- Session management with secure token rotation
+
+### 📡 Real-Time Threat Detection
+- **Rule-Based Detection Engine** — YAML-defined rules with priority scoring
+- **Anomaly Detection Engine** — Statistical baseline with Z-score outlier detection
+- **Behavioral Analysis Engine** — User/Entity Behavior Analytics (UEBA)
+- **Kill-Chain Correlation** — Multi-stage attack sequence analysis
+- **Risk Scoring** — Dynamic asset-aware risk calculation
+
+### 📊 Live Dashboard
+- Real-time WebSocket live event feed
+- Threat severity breakdown (Critical / High / Medium / Low)
+- Incident timeline and trend analysis
+- Environment-level metrics and KPIs
+- Interactive charts and visualizations
+
+### 🚨 Incident Management
+- Automated incident creation from detected threats
+- Evidence collection and attachment
+- Analyst assignment and workflow queue
+- Human review gate before automated response
+- Incident lifecycle tracking (Open → Investigating → Resolved)
+
+### ⚡ Automated Response
+- **Firewall Rule Executor** — Automated IP blocking
+- **Account Disable Executor** — Compromised account lockdown
+- **Network Quarantine Executor** — Host isolation
+- Approval gate for all destructive actions
+- Response action audit trail
+
+### 🔍 Threat Intelligence
+- External threat feed ingestion (MISP, OTX, custom)
+- IOC (Indicators of Compromise) enrichment
+- Threat intel correlation with detected events
+- Automated IOC lookup and scoring
+
+### 📋 Audit & Compliance
+- **SHA-256 Hash-Chained Audit Log** — Tamper-evident, append-only
+- Full audit trail for every mutating action
+- Audit chain integrity verification script
+- Export-ready compliance reports
+
+### 📧 Alert Notifications
+- **In-app WebSocket alerts** — Real-time push notifications
+- **Email notifications** via SMTP (configurable)
+- **Webhook notifications** — POST to custom endpoints
+- Alert severity filtering and routing
+
+### 📄 Reporting
+- PDF report generation for incidents
+- HTML report export
+- Scheduled automated reports
+- Executive summary dashboards
+
+---
+
+## 🚀 Quick Start
+
+### Option 1: Docker (Recommended)
+
+```bash
+# Clone the repository
+git clone https://github.com/Pravallika2025/unified-threat-platform.git
+cd unified-threat-platform
+
+# Configure environment
+cp .env.example .env
+
+# Start all services
+docker compose up --build
+```
+
+**Access:**
+- 🌐 **Frontend:** http://localhost:5173
+- ⚙️ **Backend API:** http://localhost:8000/docs
+- 🔑 **Login:** `admin@threatplatform.dev` / `Admin@12345`
+
+---
+
+### Option 2: Manual Setup (No Docker)
+
+#### Backend Setup
+
+```bash
+cd backend
+
+# Create virtual environment
+python -m venv .venv
+
+# Activate (Windows)
+.venv\Scripts\activate
+# Activate (Linux/Mac)
+source .venv/bin/activate
+
+# Install dependencies
+pip install -e ".[dev]"
+
+# Configure environment
+cp ../.env.example ../.env
+
+# Initialize database with seed data
+python -m app.seeds.run
+
+# Start backend server
+uvicorn app.main:app --reload --port 8000
+```
+
+#### Frontend Setup
+
+```bash
+cd frontend
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+#### Simulate Attack Traffic
+
+```bash
+# Push sample logs through the detection pipeline
+python scripts/replay_logs.py
+
+# Verify the cryptographic audit chain
+python scripts/verify_audit_chain.py
+```
+
+---
+
+## 🏗️ Architecture
+
+```
+unified-threat-platform/
+├── backend/                    # FastAPI Python Backend
+│   ├── app/
+│   │   ├── api/v1/routes/      # REST API endpoints (thin HTTP layer)
+│   │   ├── core/               # Config, DB, security, middleware
+│   │   ├── modules/            # Domain modules (Clean Architecture)
+│   │   │   ├── auth/           # Authentication & RBAC
+│   │   │   ├── audit/          # Hash-chained audit log
+│   │   │   ├── correlation/    # Kill-chain & sequence correlation
+│   │   │   ├── detection/      # Threat detection engines
+│   │   │   ├── environments/   # Multi-environment management
+│   │   │   ├── events/         # Log ingestion & normalization
+│   │   │   ├── incidents/      # Incident lifecycle management
+│   │   │   ├── notifications/  # Email, webhook, in-app alerts
+│   │   │   ├── reports/        # PDF/HTML report generation
+│   │   │   ├── response/       # Automated response actions
+│   │   │   ├── risk/           # Risk scoring engine
+│   │   │   └── threat_intel/   # Threat intelligence feeds
+│   │   ├── realtime/           # WebSocket connection manager
+│   │   ├── seeds/              # Database initialization
+│   │   └── workers/            # Celery async task workers
+│   └── tests/                  # pytest test suite
+│
+├── frontend/                   # React + TypeScript + Vite Frontend
+│   └── src/
+│       ├── app/                # Router, providers, store
+│       ├── components/         # Reusable UI components
+│       ├── features/           # Feature-specific screens
+│       │   ├── auth/           # Login page
+│       │   ├── dashboard/      # Main dashboard
+│       │   ├── incidents/      # Incident management UI
+│       │   ├── events/         # Event log viewer
+│       │   ├── response/       # Response action UI
+│       │   ├── audit/          # Audit log viewer
+│       │   └── threat-intel/   # Threat intelligence UI
+│       └── lib/                # API client, hooks, utilities
+│
+├── detection-content/          # YAML Detection Rules
+├── scripts/                    # Utility scripts
+├── docker-compose.yml          # Multi-service orchestration
+└── Makefile                    # Developer shortcuts
+```
+
+### Architectural Principles
+
+1. **Clean Architecture** — Domain layer has zero framework dependencies
+2. **Module Isolation** — Modules communicate only through `application/*_service.py`
+3. **Approval Gate** — Every destructive response action requires human approval
+4. **Audit Everything** — Every mutation writes a SHA-256 hash-chained `AuditEntry`
+5. **Event-Driven** — WebSocket real-time feed for live threat visibility
+
+---
+
+## 📸 Screenshots
+
+### 🔐 Login Page
+![Login Dashboard](./docs/screenshots/login.png)
+
+### 📊 Main Dashboard
+![Main Dashboard](./docs/screenshots/dashboard.png)
+
+### 🚨 Incidents View
+![Incidents](./docs/screenshots/incidents.png)
+
+### 📡 Live Event Feed
+![Live Events](./docs/screenshots/events.png)
+
+---
+
+## 🛠️ Technology Stack
+
+### Backend
+| Technology | Purpose |
+|-----------|---------|
+| **FastAPI** | High-performance async REST API |
+| **SQLAlchemy** | ORM with async session support |
+| **SQLite / PostgreSQL** | Database (dev/prod) |
+| **Celery + Redis** | Async task queue |
+| **WebSockets** | Real-time event streaming |
+| **JWT (python-jose)** | Authentication tokens |
+| **Passlib (bcrypt)** | Password hashing |
+| **WeasyPrint** | PDF report generation |
+| **APScheduler** | Background scheduled tasks |
+
+### Frontend
+| Technology | Purpose |
+|-----------|---------|
+| **React 18** | UI framework |
+| **TypeScript** | Type-safe development |
+| **Vite** | Fast build tool |
+| **Zustand** | Lightweight state management |
+| **React Query** | Server state & caching |
+| **Recharts** | Data visualization charts |
+| **Lucide React** | Modern icon library |
+
+### Infrastructure
+| Technology | Purpose |
+|-----------|---------|
+| **Docker + Docker Compose** | Containerization |
+| **Nginx** | Reverse proxy |
+| **Redis** | Message broker & cache |
+
+---
+
+## 🔌 API Reference
+
+Full interactive API documentation available at:
+- **Swagger UI:** http://localhost:8000/docs
+- **ReDoc:** http://localhost:8000/redoc
+
+### Key Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/v1/auth/login` | User authentication |
+| `POST` | `/api/v1/ingest/batch` | Batch log ingestion |
+| `GET` | `/api/v1/incidents/` | List all incidents |
+| `POST` | `/api/v1/incidents/{id}/evidence` | Add evidence to incident |
+| `GET` | `/api/v1/audit/entries` | Audit log entries |
+| `POST` | `/api/v1/response/actions` | Execute response action |
+| `GET` | `/api/v1/threat-intel/iocs` | List threat IOCs |
+| `GET` | `/api/v1/reports/` | Generate/list reports |
+| `WS` | `/ws/events` | Live event WebSocket |
+
+---
+
+## 🔒 Default Credentials
+
+| Role | Email | Password |
+|------|-------|----------|
+| **Super Admin** | `admin@threatplatform.dev` | `Admin@12345` |
+| **Analyst** | `analyst@threatplatform.dev` | `Analyst@12345` |
+
+> ⚠️ **Change all default credentials before deploying to production!**
+
+---
+
+## 🧪 Testing
+
+```bash
+cd backend
+
+# Run all tests
+python -m pytest
+
+# Run with coverage
+python -m pytest --cov=app --cov-report=html
+
+# Run specific module tests
+python -m pytest tests/test_auth.py -v
+
+# Verify audit chain integrity
+python scripts/verify_audit_chain.py
+```
+
+---
+
+## 🚀 Production Deployment
+
+### Environment Variables
+
+```env
+# Security (CHANGE IN PRODUCTION)
+SECRET_KEY=your-super-secret-key-256-bits
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+
+# Database (upgrade to PostgreSQL for production)
+DATABASE_URL=postgresql+asyncpg://user:pass@localhost/threatplatform
+
+# Redis
+REDIS_URL=redis://localhost:6379/0
+
+# Email Notifications
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your-email@gmail.com
+SMTP_PASSWORD=your-app-password
+
+# Frontend
+VITE_API_BASE_URL=https://your-api-domain.com
+```
+
+### Docker Production
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+```
+
+---
+
+## 📋 Detection Rules
+
+Detection rules are defined as YAML files in `detection-content/`:
+
+```yaml
+# detection-content/rules/brute_force.yml
+id: RULE-001
+name: Brute Force Login Detection
+description: Detects multiple failed login attempts
+severity: HIGH
+conditions:
+  - field: event_type
+    operator: equals
+    value: AUTH_FAILURE
+  - field: count
+    operator: greater_than
+    value: 5
+    window_seconds: 60
+response:
+  auto_block: true
+  alert_level: CRITICAL
+```
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License** — see [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+Built with ❤️ using:
+- [FastAPI](https://fastapi.tiangolo.com/) by Sebastián Ramírez
+- [React](https://react.dev/) by Meta
+- [MITRE ATT&CK Framework](https://attack.mitre.org/) for detection rule design
+
+---
+
+<div align="center">
+
+**⭐ Star this repo if you find it useful!**
+
+[Report Bug](https://github.com/Pravallika2025/unified-threat-platform/issues) • [Request Feature](https://github.com/Pravallika2025/unified-threat-platform/issues)
+
+</div>
