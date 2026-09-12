@@ -55,13 +55,15 @@ The following subsystems are implemented, tested, and active:
 - **Response Rollback:** Implemented with `RollbackService` allowing analysts to safely undo mitigation actions with tracked rollback tokens.
 - **Retention & Data Lifecycle:** Implemented (`RetentionService`), pruning expired raw and normalized events while safeguarding active incident evidence and maintaining the cryptographic audit hash chain.
 - **Automated Scheduling:** In-process `AsyncScheduler` integrated into FastAPI lifespan runs detection pipeline ticks every 60s, feed syncs every 6h, and daily retention enforcement.
+- **Security Headers & Defense-in-Depth:** Implemented `SecurityHeadersMiddleware` applying OWASP standards (`X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `X-XSS-Protection`, `Referrer-Policy`, strict permissions policy, and HSTS).
+- **Production Config Validation & Pooling:** Added Pydantic validator blocking insecure default secrets or weak bootstrap passwords in production, alongside PostgreSQL connection pooling (`pool_pre_ping=True`, `pool_size=20`, `max_overflow=10`).
+- **Production Orchestration:** Added `docker-compose.prod.yml` with isolated internal networks, health checks, Redis auth, and multi-worker Gunicorn configuration.
 
-## Before this goes anywhere near production
+## Production Checklist & Operations
 
-- Set a real `SECRET_KEY` and change both seeded passwords.
-- Move to Postgres. The SQLite path exists so the project runs with zero setup.
-- Enable MFA for every `super_admin`.
-- Deleting audit rows breaks the hash chain. Export and verify before any
-  retention pass; never delete in place.
-- Keep `dry_run` on until you have tested a real executor against a lab device,
-  and give every executor a hard allowlist it can never act on.
+- Set a unique 256-bit `SECRET_KEY` and set non-default passwords in `.env`.
+- Deploy using `docker compose -f docker-compose.prod.yml up -d` with PostgreSQL 16.
+- Enable MFA for every `super_admin` role.
+- Never delete audit log rows in-place; the SHA-256 hash chain requires append-only operations. Use `scripts/verify_audit_chain.py` to verify chain integrity.
+- Keep `dry_run` on until you have verified active remediation rules in a test network, and enforce strict IP/subnet allowlists.
+
