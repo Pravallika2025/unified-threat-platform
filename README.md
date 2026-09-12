@@ -11,7 +11,7 @@
 
 **A full-stack, enterprise-grade cybersecurity platform for real-time threat detection, incident response, and audit compliance.**
 
-[📖 Documentation](#documentation) • [🚀 Quick Start](#quick-start) • [🎯 Features](#features) • [🏗️ Architecture](#architecture) • [📸 Screenshots](#screenshots)
+[🎬 Demo Video](#-demo-video) • [📸 Screenshots](#-screenshots) • [🚀 Quick Start](#-quick-start) • [🎯 Features](#-features) • [🏗️ Architecture](#️-architecture) • [📖 Documentation](#-api-reference)
 
 </div>
 
@@ -210,19 +210,39 @@ unified-threat-platform/
 
 ---
 
+## 🎬 Demo Video
+
+A walkthrough demonstrating live login, dashboard KPI telemetry, severity distribution charts, incident queue inspection, human review and remediation approval gate, real-time WebSocket telemetry feed, and cryptographic audit hash chain validation:
+
+<div align="center">
+
+![Platform Live Dashboard Demo](./docs/demo/dashboard_demo.webp)
+
+*Interactive Demo Walkthrough — Automated Threat Detection & Response Platform*
+
+</div>
+
+---
+
 ## 📸 Screenshots
 
 ### 🔐 Login Page
 ![Login Dashboard](./docs/screenshots/login.png)
 
-### 📊 Main Dashboard
+### 📊 Executive Command Dashboard
 ![Main Dashboard](./docs/screenshots/dashboard.png)
 
-### 🚨 Incidents View
+### 🚨 Incident Management Queue
 ![Incidents](./docs/screenshots/incidents.png)
 
-### 📡 Live Event Feed
+### 🛡️ Incident Investigation & Human Approval Gate
+![Incident Detail](./docs/screenshots/incident_detail.png)
+
+### 📡 Real-Time Telemetry & Live Monitor
 ![Live Events](./docs/screenshots/events.png)
+
+### 📋 Cryptographic SHA-256 Audit Log Verification
+![Audit Log](./docs/screenshots/audit_log.png)
 
 ---
 

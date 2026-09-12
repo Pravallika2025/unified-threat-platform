@@ -11,6 +11,7 @@ from app.core.exception_handlers import register_exception_handlers
 from app.core.logging_config import configure_logging
 from app.core.middleware.rate_limit import RateLimitMiddleware
 from app.core.middleware.request_id import RequestIdMiddleware
+from app.core.middleware.security_headers import SecurityHeadersMiddleware
 from app.modules.detection.application.rule_loader import rule_loader
 from app.modules.notifications.application.notification_service import (
     register_notification_handlers,
@@ -64,6 +65,7 @@ def create_app() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+    app.add_middleware(SecurityHeadersMiddleware)
     app.add_middleware(RateLimitMiddleware)
     app.add_middleware(RequestIdMiddleware)
 

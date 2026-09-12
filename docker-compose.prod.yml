@@ -1,0 +1,84 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-threat_admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set strong POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-threat_platform_prod}
+    volumes:
+      - pgdata_prod:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-threat_admin}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - threat_internal
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD:-redis_secure_pass}"]
+    volumes:
+      - redisdata_prod:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-redis_secure_pass}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - threat_internal
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      ENVIRONMENT: production
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-threat_admin}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-threat_platform_prod}
+      REDIS_URL: redis://:${REDIS_PASSWORD:-redis_secure_pass}@redis:6379/0
+      SECRET_KEY: ${SECRET_KEY:?Set strong 256-bit SECRET_KEY in .env}
+      FIRST_ADMIN_EMAIL: ${FIRST_ADMIN_EMAIL:-admin@threatplatform.dev}
+      FIRST_ADMIN_PASSWORD: ${FIRST_ADMIN_PASSWORD:?Set strong admin password in .env}
+      AUTO_CREATE_TABLES: "false"
+      DETECTION_CONTENT_PATH: /detection-content
+      CORS_ORIGINS: ${CORS_ORIGINS:-https://threatplatform.internal}
+      DB_POOL_SIZE: 25
+      DB_MAX_OVERFLOW: 15
+      ENABLE_BACKGROUND_SCHEDULER: "true"
+    volumes:
+      - ./detection-content:/detection-content:ro
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+    networks:
+      - threat_internal
+      - threat_public
+    command: >
+      sh -c "python -m app.seeds.run && gunicorn app.main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000 --access-logfile - --error-logfile -"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      VITE_API_URL: ${VITE_API_URL:-https://api.threatplatform.internal}
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - backend
+    networks:
+      - threat_public
+
+networks:
+  threat_internal:
+    internal: true
+  threat_public:
+
+volumes:
+  pgdata_prod:
+  redisdata_prod:
