@@ -96,9 +96,26 @@ docker compose up --build
 ```
 
 **Access:**
-- 🌐 **Frontend:** http://localhost:5173
-- ⚙️ **Backend API:** http://localhost:8000/docs
+- 🌐 **Frontend (Local):** http://localhost:5173
+- ⚙️ **Backend API (Local):** http://localhost:8000/docs
 - 🔑 **Login:** `admin@threatplatform.dev` / `Admin@12345`
+
+---
+
+## 🌐 Live Access Across Any Device & Network
+
+### 1. Global Public Access (Any Laptop, System, or Mobile Worldwide)
+- **Frontend on GitHub Pages:** `https://pravallika2025.github.io/unified-threat-platform/`
+  *(Built and published automatically via `.github/workflows/deploy-pages.yml`)*
+- **Backend Cloud Deployment (Render / 1-Click):**
+  - Includes `render.yaml` configuration for 1-click cloud deployment on [Render](https://render.com).
+  - Simply connect this GitHub repository on Render, and it automatically starts the backend API with health checks and SSL enabled!
+
+### 2. Local Network / Wi-Fi Access (Phones, Tablets & Laptops on Same Network)
+To open the live dashboard from any other laptop or mobile phone connected to your Wi-Fi or Mobile Hotspot:
+1. Double-click `share-network.bat` (or run backend/frontend with `--host 0.0.0.0`).
+2. The script displays your network IP (e.g. `http://10.125.118.242:5173` or `http://192.168.x.x:5173`).
+3. Open that URL directly in Chrome, Safari, or Edge on your phone or other laptop!
 
 ---
 
