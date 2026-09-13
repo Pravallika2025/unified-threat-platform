@@ -216,9 +216,10 @@ A walkthrough demonstrating live login, dashboard KPI telemetry, severity distri
 
 <div align="center">
 
-![Platform Live Dashboard Demo](./docs/demo/dashboard_demo.webp)
+![Platform Live Dashboard Demo](./docs/demo/dashboard_demo.gif)
 
-*Interactive Demo Walkthrough — Automated Threat Detection & Response Platform*
+*Interactive Demo Walkthrough — Automated Threat Detection & Response Platform*  
+*(Available in [HD Animated WebP format](./docs/demo/dashboard_demo.webp) as well)*
 
 </div>
 
