@@ -11,13 +11,13 @@
 
 **A full-stack, enterprise-grade cybersecurity platform for real-time threat detection, incident response, and audit compliance.**
 
-[🎬 Demo Video](#-demo-video) • [📸 Screenshots](#-screenshots) • [🚀 Quick Start](#-quick-start) • [🎯 Features](#-features) • [🏗️ Architecture](#️-architecture) • [📖 Documentation](#-api-reference)
+[🎬 Demo Video](#demo-video) • [📸 Screenshots](#screenshots) • [🚀 Quick Start](#quick-start) • [🎯 Features](#features) • [🏗️ Architecture](#architecture) • [📖 Documentation](#api-reference)
 
 </div>
 
 ---
 
-## 🎯 Features
+## <a id="features"></a>🎯 Features
 
 ### 🔐 Authentication & Access Control
 - JWT-based authentication with refresh tokens
@@ -79,7 +79,7 @@
 
 ---
 
-## 🚀 Quick Start
+## <a id="quick-start"></a>🚀 Quick Start
 
 ### Option 1: Docker (Recommended)
 
@@ -171,7 +171,7 @@ python scripts/verify_audit_chain.py
 
 ---
 
-## 🏗️ Architecture
+## <a id="architecture"></a>🏗️ Architecture
 
 ```
 unified-threat-platform/
@@ -227,7 +227,7 @@ unified-threat-platform/
 
 ---
 
-## 🎬 Demo Video
+## <a id="demo-video"></a>🎬 Demo Video
 
 A walkthrough demonstrating live login, dashboard KPI telemetry, severity distribution charts, incident queue inspection, human review and remediation approval gate, real-time WebSocket telemetry feed, and cryptographic audit hash chain validation:
 
@@ -242,7 +242,7 @@ A walkthrough demonstrating live login, dashboard KPI telemetry, severity distri
 
 ---
 
-## 📸 Screenshots
+## <a id="screenshots"></a>📸 Screenshots
 
 ### 🔐 Login Page
 ![Login Dashboard](./docs/screenshots/login.png)
@@ -299,7 +299,7 @@ A walkthrough demonstrating live login, dashboard KPI telemetry, severity distri
 
 ---
 
-## 🔌 API Reference
+## <a id="api-reference"></a>🔌 API Reference
 
 Full interactive API documentation available at:
 - **Swagger UI:** http://localhost:8000/docs
@@ -388,25 +388,26 @@ docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 
 ## 📋 Detection Rules
 
-Detection rules are defined as YAML files in `detection-content/`:
+Detection rules are defined as YAML files in `detection-content/rules/`:
 
 ```yaml
-# detection-content/rules/brute_force.yml
-id: RULE-001
-name: Brute Force Login Detection
-description: Detects multiple failed login attempts
-severity: HIGH
-conditions:
-  - field: event_type
-    operator: equals
-    value: AUTH_FAILURE
-  - field: count
-    operator: greater_than
-    value: 5
-    window_seconds: 60
-response:
-  auto_block: true
-  alert_level: CRITICAL
+# detection-content/rules/authentication/brute_force_login.yml
+id: AUTH-0001
+title: Possible brute force login attack
+severity: high
+enabled: true
+environments: [all]
+attack:
+  tactic: TA0006
+  technique: T1110
+logic:
+  type: threshold
+  where:
+    - { field: event_action, op: eq, value: login_failed }
+  group_by: [source_ip, user_name]
+  count: 8
+  window: 5m
+response_suggestions: [monitor, block_ip]
 ```
 
 ---
