@@ -79,7 +79,12 @@ async function request<T>(path: string, init: RequestInit = {}, retry = true): P
   const access = tokenStore.access;
   if (access) headers.set("Authorization", `Bearer ${access}`);
 
-  const response = await fetch(`${PREFIX}${path}`, { ...init, headers });
+  let response: Response;
+  try {
+    response = await fetch(`${PREFIX}${path}`, { ...init, headers });
+  } catch (err) {
+    throw new ApiError(0, "Cannot reach backend server. Please verify backend is running on port 8000.", err);
+  }
 
   if (response.status === 401 && retry && (await tryRefresh())) {
     return request<T>(path, init, false);
@@ -97,9 +102,13 @@ async function request<T>(path: string, init: RequestInit = {}, retry = true): P
 }
 
 export const api = {
-  get: <T>(path: string) => request<T>(path),
-  post: <T>(path: string, body?: unknown) =>
-    request<T>(path, { method: "POST", body: body === undefined ? undefined : JSON.stringify(body) }),
+  get: <T>(path: string, options?: RequestInit) => request<T>(path, { ...options, method: "GET" }),
+  post: <T>(path: string, body?: unknown, options?: RequestInit) =>
+    request<T>(path, {
+      ...options,
+      method: "POST",
+      body: body === undefined ? undefined : JSON.stringify(body),
+    }),
   upload: <T>(path: string, form: FormData) =>
     request<T>(path, { method: "POST", body: form }),
   download: async (path: string, fallbackFilename: string) => {

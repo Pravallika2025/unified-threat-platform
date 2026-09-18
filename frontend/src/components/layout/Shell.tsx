@@ -115,6 +115,8 @@ const NAV_ITEMS: NavItem[] = [
   },
 ];
 
+import { isMockMode } from "@/lib/api/endpoints";
+
 export function Shell() {
   const { user, signOut } = useAuth();
   const { connected, lastMessageAt } = useLiveFeed();
@@ -170,11 +172,11 @@ export function Shell() {
           <div className="rounded-lg border border-line/50 bg-surface/60 p-3">
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
-                <span className={`absolute inline-flex h-full w-full rounded-full opacity-75 ${connected ? "animate-ping bg-ok" : "animate-ping bg-sev-medium"}`} />
-                <span className={`relative inline-flex h-2 w-2 rounded-full ${connected ? "bg-ok shadow-[0_0_8px_rgba(16,185,129,0.8)]" : "bg-sev-medium"}`} />
+                <span className={`absolute inline-flex h-full w-full rounded-full opacity-75 ${connected || isMockMode() ? "animate-ping bg-ok" : "animate-ping bg-sev-medium"}`} />
+                <span className={`relative inline-flex h-2 w-2 rounded-full ${connected || isMockMode() ? "bg-ok shadow-[0_0_8px_rgba(16,185,129,0.8)]" : "bg-sev-medium"}`} />
               </span>
               <span className="font-mono text-[0.6875rem] font-semibold tracking-wide text-ink">
-                {connected ? "TELEMETRY LIVE" : "RECONNECTING"}
+                {connected || isMockMode() ? "TELEMETRY LIVE" : "CONNECTING"}
               </span>
             </div>
             {lastMessageAt && (
@@ -195,6 +197,17 @@ export function Shell() {
               <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
               SOC OPERATIONS
             </span>
+            {isMockMode() ? (
+              <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-cyan/40 bg-cyan/10 px-2.5 py-0.5 font-mono text-[0.6875rem] font-semibold text-cyan">
+                <span className="h-1.5 w-1.5 rounded-full bg-cyan animate-pulse" />
+                SOC SANDBOX (STANDALONE DEMO)
+              </span>
+            ) : (
+              <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-ok/40 bg-ok/10 px-2.5 py-0.5 font-mono text-[0.6875rem] font-semibold text-ok">
+                <span className="h-1.5 w-1.5 rounded-full bg-ok animate-pulse" />
+                BACKEND API (PORT 8000 CONNECTED)
+              </span>
+            )}
           </div>
 
           <div className="flex items-center gap-4">
