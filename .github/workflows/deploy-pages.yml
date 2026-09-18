@@ -30,15 +30,25 @@ jobs:
         with:
           node-version: 20
           cache: "npm"
-          cache-dependency-path: frontend/package.json
+          cache-dependency-path: frontend/package-lock.json
 
       - name: Install dependencies
         working-directory: frontend
-        run: npm install
+        run: npm ci
 
-      - name: Build frontend
+      - name: Build frontend (production – targets Render backend)
         working-directory: frontend
         run: npm run build
+        env:
+          # Vite automatically loads .env.production during build.
+          # Setting it explicitly here ensures CI picks the right URL even
+          # if the file is absent (e.g., secret rotation scenarios).
+          VITE_API_URL: https://unified-threat-platform-backend.onrender.com
+
+      - name: Create 404.html for SPA routing
+        # GitHub Pages returns 404 for deep links; copying index.html lets
+        # React Router take over and render the correct page.
+        run: cp frontend/dist/index.html frontend/dist/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
