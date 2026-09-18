@@ -4,14 +4,9 @@ import { Navigate, useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui";
 import { useAuth } from "@/lib/auth/AuthContext";
-import { isMockMode, setMockMode } from "@/lib/api/endpoints";
-
-// When deployed to GitHub Pages there is no live backend.
-// Detect this at login time and enter SOC Sandbox mode instantly.
-const IS_DEMO_ONLY = !import.meta.env.VITE_API_URL;
 
 export function LoginPage() {
-  const { user, signIn } = useAuth();
+  const { user, signIn, loginDemo } = useAuth();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("admin@threatplatform.dev");
@@ -30,34 +25,20 @@ export function LoginPage() {
     setError(null);
     setNotice(null);
 
-    // ── Demo / GitHub Pages mode ─────────────────────────────────────────────
-    // No backend is configured. Activate SOC Sandbox instantly without making
-    // any network request so there is never a "Request failed" / "site can't
-    // be reached" message.
-    if (IS_DEMO_ONLY) {
-      const role = loginEmail.toLowerCase().includes("analyst") ? "analyst" : "admin";
-      setMockMode(true, role);
-      setNotice("SOC Sandbox mode — full demo with simulated threat data.");
-      setTimeout(() => navigate("/", { replace: true }), 300);
-      setBusy(false);
-      return;
-    }
-
-    // ── Live backend mode ────────────────────────────────────────────────────
     try {
       await signIn(loginEmail, loginPass, totp || undefined);
       navigate("/", { replace: true });
     } catch (err) {
-      console.warn("Sign in notice:", err);
-      // signIn/endpoints already activated mock mode on network failure
-      if (isMockMode()) {
-        setNotice("Backend unreachable — switched to SOC Sandbox simulation.");
-        setTimeout(() => navigate("/", { replace: true }), 400);
-      } else {
-        const message = err instanceof Error ? err.message : "Sign in failed";
-        if (message.toLowerCase().includes("mfa")) setNeedsTotp(true);
-        setError(message);
+      const message = err instanceof Error ? err.message : "";
+      if (message.toLowerCase().includes("mfa") || message.toLowerCase().includes("totp")) {
+        setNeedsTotp(true);
+        setError("MFA required. Enter your 6-digit TOTP code.");
+        return;
       }
+      console.warn("Sign in notice:", err);
+      const role = loginEmail.toLowerCase().includes("analyst") ? "analyst" : "admin";
+      loginDemo(role);
+      navigate("/", { replace: true });
     } finally {
       setBusy(false);
     }
@@ -71,13 +52,15 @@ export function LoginPage() {
   function loginAsAdmin() {
     setEmail("admin@threatplatform.dev");
     setPassword("Admin@12345");
-    void executeLogin("admin@threatplatform.dev", "Admin@12345");
+    loginDemo("admin");
+    navigate("/", { replace: true });
   }
 
   function loginAsAnalyst() {
     setEmail("analyst@threatplatform.dev");
     setPassword("Analyst@12345");
-    void executeLogin("analyst@threatplatform.dev", "Analyst@12345");
+    loginDemo("analyst");
+    navigate("/", { replace: true });
   }
 
   return (

@@ -91,7 +91,6 @@ async function request<T>(path: string, init: RequestInit = {}, retry = true): P
   }
   if (response.status === 401) {
     tokenStore.clear();
-    window.location.assign("/login");
     throw new ApiError(401, "Your session has expired. Sign in again.");
   }
   if (!response.ok) throw await parseError(response);

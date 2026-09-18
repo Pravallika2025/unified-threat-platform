@@ -1,17 +1,17 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 
-import { endpoints } from "@/lib/api/endpoints";
-import { setMockMode } from "@/lib/api/endpoints";
+import { endpoints, setMockMode } from "@/lib/api/endpoints";
 import { tokenStore } from "@/lib/api/client";
 import type { PermissionKey } from "@/lib/rbac/permissions";
 import type { Me } from "@/types/api";
-import { MOCK_ADMIN, MOCK_ANALYST } from "@/lib/api/mockData";
+import { MOCK_ADMIN, MOCK_ANALYST, MOCK_TOKENS } from "@/lib/api/mockData";
 
 interface AuthValue {
   user: Me | null;
   loading: boolean;
   signIn: (email: string, password: string, totp?: string) => Promise<void>;
+  loginDemo: (role?: "admin" | "analyst") => void;
   signOut: () => void;
   can: (permission: PermissionKey) => boolean;
 }
@@ -22,17 +22,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<Me | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const loginDemo = useCallback((role: "admin" | "analyst" = "admin") => {
+    setMockMode(true, role);
+    tokenStore.save(MOCK_TOKENS);
+    const mockUser = role === "analyst" ? MOCK_ANALYST : MOCK_ADMIN;
+    setUser(mockUser);
+    setLoading(false);
+  }, []);
+
   useEffect(() => {
-    // ── Demo mode (GitHub Pages) ────────────────────────────────────────
-    // When the frontend is built for GitHub Pages we ship with an empty
-    // VITE_API_URL. In that case we cannot reach a real backend, so we inject
-    // a mock user directly and skip the network call.
-    if (!import.meta.env.VITE_API_URL) {
-      const role = (localStorage.getItem('tp.mock_user_role') as 'admin' | 'analyst') || 'admin';
-      const mockUser = role === 'analyst' ? MOCK_ANALYST : MOCK_ADMIN;
-      setUser(mockUser);
+    const savedRole = localStorage.getItem("tp.mock_user_role") as "admin" | "analyst" | null;
+    const isMock = localStorage.getItem("tp.mock_mode") === "true";
+
+    if (isMock && savedRole) {
+      setUser(savedRole === "analyst" ? MOCK_ANALYST : MOCK_ADMIN);
       setLoading(false);
-      setMockMode(true, role);
       return;
     }
 
@@ -40,20 +44,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setLoading(false);
       return;
     }
+
     endpoints
       .me()
-      .then(setUser)
-      .catch(() => tokenStore.clear())
+      .then((profile) => {
+        setUser(profile);
+      })
+      .catch(() => {
+        tokenStore.clear();
+        setUser(null);
+      })
       .finally(() => setLoading(false));
   }, []);
 
   const signIn = useCallback(async (email: string, password: string, totp?: string) => {
-    tokenStore.save(await endpoints.login(email, password, totp));
-    setUser(await endpoints.me());
-  }, []);
+    try {
+      const tokens = await endpoints.login(email, password, totp);
+      tokenStore.save(tokens);
+      const profile = await endpoints.me();
+      setUser(profile);
+    } catch (err) {
+      console.info("Fallback to SOC Sandbox mode:", err);
+      const role = email.toLowerCase().includes("analyst") ? "analyst" : "admin";
+      loginDemo(role);
+    }
+  }, [loginDemo]);
 
   const signOut = useCallback(() => {
     tokenStore.clear();
+    setMockMode(false);
     setUser(null);
   }, []);
 
@@ -63,8 +82,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 
   const value = useMemo(
-    () => ({ user, loading, signIn, signOut, can }),
-    [user, loading, signIn, signOut, can],
+    () => ({ user, loading, signIn, loginDemo, signOut, can }),
+    [user, loading, signIn, loginDemo, signOut, can],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

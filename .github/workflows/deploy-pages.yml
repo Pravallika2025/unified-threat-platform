@@ -36,14 +36,12 @@ jobs:
         working-directory: frontend
         run: npm ci
 
-      - name: Build frontend (production – targets Render backend)
+      - name: Build frontend (production – standalone for GitHub Pages)
         working-directory: frontend
         run: npm run build
         env:
-          # Vite automatically loads .env.production during build.
-          # Setting it explicitly here ensures CI picks the right URL even
-          # if the file is absent (e.g., secret rotation scenarios).
-          VITE_API_URL: https://unified-threat-platform-backend.onrender.com
+          VITE_API_URL: ""
+          VITE_BASE_PATH: /unified-threat-platform/
 
       - name: Create 404.html for SPA routing
         # GitHub Pages returns 404 for deep links; copying index.html lets
