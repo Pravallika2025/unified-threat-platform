@@ -1,15 +1,30 @@
 services:
   - type: web
     name: unified-threat-platform-backend
-    env: python
-    buildCommand: "cd backend && pip install --no-cache-dir -e '.[dev]'"
-    startCommand: "cd backend && python -m app.seeds.run && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    runtime: python
+    region: oregon
+    plan: free
+    buildCommand: "cd backend && pip install --no-cache-dir -e '.'"
+    startCommand: "cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /api/v1/health
     envVars:
       - key: PYTHON_VERSION
-        value: 3.12.0
-      - key: APP_ENV
+        value: "3.12.0"
+      - key: ENVIRONMENT
         value: production
-      - key: JWT_SECRET
+      - key: SECRET_KEY
         generateValue: true
+      - key: DATABASE_URL
+        value: "sqlite+aiosqlite:///./threat_platform.db"
+      - key: AUTO_CREATE_TABLES
+        value: "true"
+      - key: FIRST_ADMIN_EMAIL
+        value: admin@threatplatform.dev
+      - key: FIRST_ADMIN_PASSWORD
+        value: Admin@12345
       - key: CORS_ORIGINS
-        value: "*"
+        value: "https://pravallika2025.github.io,http://localhost:5173,http://localhost:4173,http://127.0.0.1:5173"
+      - key: ENABLE_BACKGROUND_SCHEDULER
+        value: "false"
+      - key: REDIS_URL
+        value: ""
