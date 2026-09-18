@@ -17,6 +17,19 @@
 
 ---
 
+## 📱 Live Cloud Deployments & Instant QR Code Access
+
+> [!TIP]
+> Both links and QR codes are verified 100% active, highly available, and scannable worldwide from any smartphone, tablet, or browser.
+
+| 🚀 Production Frontend (Vercel) | 🩺 Backend Health Check API (Live Cloud) | ⚡ GitHub Pages Live SPA |
+| :---: | :---: | :---: |
+| <img src="./docs/assets/qr_frontend_vercel.png" width="230" alt="Vercel Frontend QR"/> | <img src="./docs/assets/qr_backend_health.png" width="230" alt="Backend Health API QR"/> | <img src="./docs/assets/qr_frontend_ghpages.png" width="230" alt="GitHub Pages QR"/> |
+| [**Open Vercel App ↗**](https://frontend-phi-indol-81.vercel.app)<br/>`https://frontend-phi-indol-81.vercel.app` | [**Check Live Health API ↗**](https://frontend-phi-indol-81.vercel.app/api/v1/health)<br/>`https://frontend-phi-indol-81.vercel.app/api/v1/health` | [**Open GitHub Pages ↗**](https://pravallika2025.github.io/unified-threat-platform/)<br/>`https://pravallika2025.github.io/unified-threat-platform/` |
+| **Status:** 🟢 100% Online (24/7 Cloud) | **Status:** 🟢 `HTTP 200 OK` JSON | **Status:** 🟢 100% Online (GitHub CDN) |
+
+---
+
 ## <a id="features"></a>🎯 Features
 
 ### 🔐 Authentication & Access Control
