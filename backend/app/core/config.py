@@ -31,7 +31,7 @@ class Settings(BaseSettings):
     FIRST_ADMIN_PASSWORD: str = "Admin@12345"
 
     DETECTION_CONTENT_PATH: str = "../detection-content"
-    CORS_ORIGINS: str = "http://localhost:5173"
+    CORS_ORIGINS: str = "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,http://localhost:4173,https://pravallika2025.github.io"
 
     ENABLE_BACKGROUND_SCHEDULER: bool = True
     SCHEDULER_INTERVAL_SECONDS: int = 60

@@ -1,43 +1,64 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui";
 import { useAuth } from "@/lib/auth/AuthContext";
+import { isMockMode } from "@/lib/api/endpoints";
 
 export function LoginPage() {
   const { user, signIn } = useAuth();
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("admin@threatplatform.dev");
+  const [password, setPassword] = useState("Admin@12345");
   const [totp, setTotp] = useState("");
   const [needsTotp, setNeedsTotp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
   if (user) return <Navigate to="/" replace />;
 
-  async function handleSubmit(event: FormEvent) {
-    event.preventDefault();
+  async function executeLogin(loginEmail: string, loginPass: string) {
     setBusy(true);
     setError(null);
+    setNotice(null);
     try {
-      await signIn(email, password, totp || undefined);
+      await signIn(loginEmail, loginPass, totp || undefined);
       navigate("/", { replace: true });
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Sign in failed";
-      if (message.toLowerCase().includes("mfa")) setNeedsTotp(true);
-      setError(message);
+      console.warn("Sign in notice:", err);
+      // If any issue occurs, signIn in AuthContext/endpoints will activate Standalone SOC Sandbox session
+      if (isMockMode()) {
+        setNotice("Connected via Autonomous SOC Simulation Mode.");
+        setTimeout(() => navigate("/", { replace: true }), 400);
+      } else {
+        const message = err instanceof Error ? err.message : "Sign in failed";
+        if (message.toLowerCase().includes("mfa")) setNeedsTotp(true);
+        setError(message);
+      }
     } finally {
       setBusy(false);
     }
   }
 
-  function fillDemoCredentials() {
+  async function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    await executeLogin(email, password);
+  }
+
+  function loginAsAdmin() {
     setEmail("admin@threatplatform.dev");
     setPassword("Admin@12345");
+    void executeLogin("admin@threatplatform.dev", "Admin@12345");
+  }
+
+  function loginAsAnalyst() {
+    setEmail("analyst@threatplatform.dev");
+    setPassword("Analyst@12345");
+    void executeLogin("analyst@threatplatform.dev", "Analyst@12345");
   }
 
   return (
@@ -50,7 +71,7 @@ export function LoginPage() {
       {/* Main Container */}
       <div className="relative z-10 w-full max-w-5xl grid lg:grid-cols-12 gap-8 items-center">
         {/* Left Side: SOC Platform Overview & Telemetry Preview */}
-        <div className="hidden lg:flex lg:col-span-6 flex-col justify-between space-y-8 pr-4">
+        <div className="hidden lg:flex lg:col-span-6 flex-col justify-between space-y-6 pr-4">
           <div>
             {/* Shield Logo */}
             <div className="inline-flex items-center gap-3 rounded-xl border border-line/80 bg-panel/70 px-4 py-2 backdrop-blur-md mb-6 shadow-glass">
@@ -60,20 +81,61 @@ export function LoginPage() {
                 </svg>
               </div>
               <span className="font-mono text-xs font-bold tracking-widest text-white uppercase">
-                THREAT PLATFORM // V1.0
+                THREAT PLATFORM // SOC DEFENSE GRID
               </span>
             </div>
 
             <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
               Next-Gen Autonomous <br />
               <span className="bg-gradient-to-r from-accent via-cyan to-blue-400 bg-clip-text text-transparent">
-                Cyber Defense Grid
+                Cyber Threat Intelligence &amp; Response
               </span>
             </h1>
             <p className="mt-3 text-sm text-muted leading-relaxed max-w-md">
-              Enterprise real-time intrusion detection, MITRE ATT&amp;CK kill-chain mapping,
-              and tamper-evident incident response.
+              Enterprise real-time intrusion telemetry, MITRE ATT&amp;CK kill-chain mapping, 
+              cryptographic audit verification, and human-in-the-loop response orchestrator.
             </p>
+          </div>
+
+          {/* Quick One-Click Role Credentials Card */}
+          <div className="rounded-xl border border-accent/30 bg-panel/80 p-4 shadow-glass backdrop-blur-md">
+            <div className="flex items-center justify-between mb-3 border-b border-line/60 pb-2">
+              <span className="eyebrow text-accent font-semibold flex items-center gap-1.5">
+                <span className="h-2 w-2 rounded-full bg-accent animate-ping" />
+                Quick Instant Launch
+              </span>
+              <span className="font-mono text-[0.625rem] text-faint">ONE-CLICK SIGN IN</span>
+            </div>
+            <p className="text-xs text-muted mb-3">
+              Select an authorized operator profile to bypass manual entry and test the live operations dashboard immediately:
+            </p>
+            <div className="grid grid-cols-2 gap-2.5">
+              <button
+                type="button"
+                onClick={loginAsAdmin}
+                disabled={busy}
+                className="flex flex-col items-start p-2.5 rounded-lg border border-accent/40 bg-accent/10 hover:bg-accent/20 hover:border-accent transition-all text-left group cursor-pointer"
+              >
+                <div className="flex items-center gap-1.5 text-xs font-bold text-white group-hover:text-cyan">
+                  <span>⚡ Super Admin</span>
+                </div>
+                <span className="text-[0.6875rem] font-mono text-muted mt-0.5">admin@threatplatform.dev</span>
+                <span className="text-[0.625rem] text-accent/80 mt-1 font-semibold">Full Command Authority →</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={loginAsAnalyst}
+                disabled={busy}
+                className="flex flex-col items-start p-2.5 rounded-lg border border-line/80 bg-raised/70 hover:bg-raised hover:border-cyan/60 transition-all text-left group cursor-pointer"
+              >
+                <div className="flex items-center gap-1.5 text-xs font-bold text-white group-hover:text-cyan">
+                  <span>🛡️ SOC Analyst</span>
+                </div>
+                <span className="text-[0.6875rem] font-mono text-muted mt-0.5">analyst@threatplatform.dev</span>
+                <span className="text-[0.625rem] text-cyan/80 mt-1 font-semibold">Investigation &amp; Triage →</span>
+              </button>
+            </div>
           </div>
 
           {/* Live Telemetry Status Terminal */}
@@ -81,21 +143,21 @@ export function LoginPage() {
             <div className="flex items-center justify-between border-b border-line/60 pb-2.5 mb-3">
               <span className="flex items-center gap-2 text-ink font-semibold">
                 <span className="h-2 w-2 rounded-full bg-ok shadow-[0_0_8px_rgba(16,185,129,0.8)] animate-pulse" />
-                SYSTEM TELEMETRY FEED
+                DEFENSE GRID TELEMETRY
               </span>
-              <span className="text-[0.625rem] text-faint uppercase">TLS 1.3 // ENCRYPTED</span>
+              <span className="text-[0.625rem] text-ok uppercase tracking-wider">ONLINE &amp; ARMED</span>
             </div>
             <div className="space-y-1.5 text-muted">
               <div className="flex justify-between">
-                <span>Ingestion Pipeline:</span>
-                <span className="text-ok">ACTIVE · 0 PENDING</span>
+                <span>Ingestion Core:</span>
+                <span className="text-ok">ACTIVE · FASTAPI + CELERY</span>
               </div>
               <div className="flex justify-between">
-                <span>Correlation &amp; Kill-Chain:</span>
-                <span className="text-cyan">CHRONO-MAPPED</span>
+                <span>Kill-Chain Engine:</span>
+                <span className="text-cyan">CHRONO-MAPPED // 7 VECTORS</span>
               </div>
               <div className="flex justify-between">
-                <span>Audit Trail Ledger:</span>
+                <span>Audit Ledger:</span>
                 <span className="text-ok">SHA-256 HASH VERIFIED</span>
               </div>
               <div className="flex justify-between">
@@ -103,24 +165,6 @@ export function LoginPage() {
                 <span className="text-accent">ABUSEIPDB + MITRE SYNCED</span>
               </div>
             </div>
-          </div>
-
-          {/* Security Compliance Badges */}
-          <div className="flex items-center gap-4 text-xs font-mono text-faint">
-            <span className="flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-              SOC 2 COMPLIANT
-            </span>
-            <span>•</span>
-            <span className="flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-cyan" />
-              MITRE ATT&amp;CK
-            </span>
-            <span>•</span>
-            <span className="flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-ok" />
-              AIR-GAP READY
-            </span>
           </div>
         </div>
 
@@ -133,17 +177,31 @@ export function LoginPage() {
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-xl font-bold tracking-tight text-white">Operator Sign In</h2>
-                <p className="eyebrow text-accent mt-0.5">Secure Gateway Authentication</p>
+                <p className="eyebrow text-accent mt-0.5">SOC Command Access</p>
               </div>
 
-              {/* Quick Fill Button */}
+              {/* Status Badge */}
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-ok/30 bg-ok/10 px-2.5 py-0.5 text-[0.6875rem] font-mono text-ok">
+                <span className="h-1.5 w-1.5 rounded-full bg-ok animate-pulse" />
+                <span>Gateway Active</span>
+              </div>
+            </div>
+
+            {/* Quick action buttons for mobile & small screens */}
+            <div className="flex lg:hidden gap-2 mb-4">
               <button
                 type="button"
-                onClick={fillDemoCredentials}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-accent/40 bg-accent/10 px-2.5 py-1 text-[0.6875rem] font-mono font-medium text-accent hover:bg-accent/20 transition-all cursor-pointer shadow-sm"
-                title="Populate default admin test credentials"
+                onClick={loginAsAdmin}
+                className="flex-1 py-1.5 px-2 rounded-lg border border-accent/40 bg-accent/10 text-xs font-semibold text-accent hover:bg-accent/20 cursor-pointer"
               >
-                <span>⚡ Fill Admin</span>
+                ⚡ Fill Admin
+              </button>
+              <button
+                type="button"
+                onClick={loginAsAnalyst}
+                className="flex-1 py-1.5 px-2 rounded-lg border border-line/80 bg-raised/60 text-xs font-semibold text-muted hover:text-white cursor-pointer"
+              >
+                🛡️ Fill Analyst
               </button>
             </div>
 
@@ -160,7 +218,7 @@ export function LoginPage() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full rounded-lg border border-line/80 bg-raised/70 px-3.5 py-2.5 text-sm text-ink placeholder:text-faint transition-all focus:border-accent focus:bg-elevated focus:outline-none focus:ring-1 focus:ring-accent"
+                    className="w-full rounded-lg border border-line/80 bg-raised/70 px-3.5 py-2.5 text-sm text-ink placeholder:text-faint transition-all focus:border-accent focus:bg-elevated focus:outline-none focus:ring-1 focus:ring-accent font-mono"
                     placeholder="admin@threatplatform.dev"
                   />
                   <span className="absolute right-3 top-3 text-faint">
@@ -192,7 +250,7 @@ export function LoginPage() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full rounded-lg border border-line/80 bg-raised/70 px-3.5 py-2.5 text-sm text-ink placeholder:text-faint transition-all focus:border-accent focus:bg-elevated focus:outline-none focus:ring-1 focus:ring-accent"
+                    className="w-full rounded-lg border border-line/80 bg-raised/70 px-3.5 py-2.5 text-sm text-ink placeholder:text-faint transition-all focus:border-accent focus:bg-elevated focus:outline-none focus:ring-1 focus:ring-accent font-mono"
                     placeholder="••••••••••••"
                   />
                   <span className="absolute right-3 top-3 text-faint">
@@ -218,15 +276,31 @@ export function LoginPage() {
                     placeholder="000000"
                   />
                   <p className="mt-1 text-[0.6875rem] text-muted">
-                    Enter the 6-digit one-time passcode from your authenticator device.
+                    Enter the 6-digit one-time passcode from your authenticator app.
                   </p>
                 </div>
               )}
 
+              {notice && (
+                <div className="rounded-lg border border-cyan/40 bg-cyan/10 p-3 text-xs text-cyan flex items-center gap-2">
+                  <span className="font-bold">✓</span>
+                  <span>{notice}</span>
+                </div>
+              )}
+
               {error && (
-                <div className="rounded-lg border border-sev-critical/50 bg-sev-critical/10 p-3 text-xs text-sev-critical flex items-start gap-2">
-                  <span className="font-bold">!</span>
-                  <span>{error}</span>
+                <div className="rounded-lg border border-sev-critical/50 bg-sev-critical/10 p-3 text-xs text-sev-critical space-y-2">
+                  <div className="flex items-start gap-2">
+                    <span className="font-bold">!</span>
+                    <span>{error}</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={loginAsAdmin}
+                    className="w-full py-1.5 px-2 rounded border border-accent/50 bg-accent/20 text-accent font-semibold text-xs hover:bg-accent hover:text-white transition-all cursor-pointer"
+                  >
+                    Enter via Instant SOC Demo Mode →
+                  </button>
                 </div>
               )}
 
@@ -237,25 +311,29 @@ export function LoginPage() {
                 className="w-full py-2.5 text-sm font-semibold tracking-wide shadow-glow-accent cursor-pointer"
               >
                 {busy ? (
-                  <span className="flex items-center gap-2">
+                  <span className="flex items-center justify-center gap-2">
                     <span className="h-4 w-4 rounded-full border-2 border-white/40 border-t-white animate-spin" />
-                    Authenticating…
+                    Connecting to SOC Grid…
                   </span>
                 ) : (
-                  "Authenticate & Connect"
+                  "Authenticate & Enter Dashboard"
                 )}
               </Button>
             </form>
 
-            <div className="mt-6 border-t border-line/60 pt-4 text-center">
-              <p className="text-xs text-muted">
-                New security operator?{" "}
-                <Link to="/register" className="text-accent font-medium hover:text-accentHover underline-offset-4 hover:underline">
-                  Register credential
-                </Link>
-              </p>
-              <p className="mt-2 text-[0.625rem] font-mono text-faint">
-                RESTRICTED SYSTEM · ALL MUTATING ACTIONS CRYPTOGRAPHICALLY RECORDED
+            <div className="mt-5 pt-4 border-t border-line/60">
+              <div className="flex items-center justify-between text-xs text-muted">
+                <span>Cloud &amp; Offline Ready</span>
+                <button
+                  type="button"
+                  onClick={loginAsAdmin}
+                  className="text-accent hover:text-accentHover font-medium underline-offset-4 hover:underline cursor-pointer"
+                >
+                  ⚡ Direct Demo Entry
+                </button>
+              </div>
+              <p className="mt-2 text-[0.625rem] font-mono text-faint text-center">
+                RESTRICTED ACCESS · SHA-256 HASH CHAIN TAMPER-EVIDENT AUDIT TRAIL
               </p>
             </div>
           </div>
