@@ -5,13 +5,12 @@ import { defineConfig, loadEnv } from "vite";
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
-  // When deploying to GitHub Pages the app lives at
-  //   https://<user>.github.io/<repo>/
-  // so all asset paths must be absolute and prefixed with the repo name.
-  // Locally (dev / preview) we use "/" so the proxy works.
+  // When deploying to Vercel, the app lives at root "/".
+  // When deploying to GitHub Pages, the app lives at "/unified-threat-platform/".
+  const isVercel = Boolean(process.env.VERCEL || env.VERCEL || process.env.VERCEL_ENV);
   const base =
     env.VITE_BASE_PATH ??
-    (command === "build" && !env.VITE_API_URL ? "/unified-threat-platform/" : "/");
+    (isVercel ? "/" : (command === "build" && !env.VITE_API_URL ? "/unified-threat-platform/" : "/"));
 
   return {
     base,
