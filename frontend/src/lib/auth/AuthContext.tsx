@@ -2,9 +2,11 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import type { ReactNode } from "react";
 
 import { endpoints } from "@/lib/api/endpoints";
+import { setMockMode } from "@/lib/api/endpoints";
 import { tokenStore } from "@/lib/api/client";
 import type { PermissionKey } from "@/lib/rbac/permissions";
 import type { Me } from "@/types/api";
+import { MOCK_ADMIN, MOCK_ANALYST } from "@/lib/api/mockData";
 
 interface AuthValue {
   user: Me | null;
@@ -21,6 +23,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // ── Demo mode (GitHub Pages) ────────────────────────────────────────
+    // When the frontend is built for GitHub Pages we ship with an empty
+    // VITE_API_URL. In that case we cannot reach a real backend, so we inject
+    // a mock user directly and skip the network call.
+    if (!import.meta.env.VITE_API_URL) {
+      const role = (localStorage.getItem('tp.mock_user_role') as 'admin' | 'analyst') || 'admin';
+      const mockUser = role === 'analyst' ? MOCK_ANALYST : MOCK_ADMIN;
+      setUser(mockUser);
+      setLoading(false);
+      setMockMode(true, role);
+      return;
+    }
+
     if (!tokenStore.access) {
       setLoading(false);
       return;
