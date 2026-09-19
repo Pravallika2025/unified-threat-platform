@@ -9,7 +9,7 @@ from app.api.v1.routes import (
     dashboard,
     environments,
     events,
-    health,
+
     incidents,
     ingestion,
     investigation,
@@ -24,7 +24,7 @@ from app.api.v1.routes import (
 api_router = APIRouter(route_class=UnitOfWorkRoute)
 
 for module in (
-    health,
+
     auth,
     users,
     environments,
