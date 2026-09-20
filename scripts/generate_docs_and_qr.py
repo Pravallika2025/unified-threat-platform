@@ -116,7 +116,6 @@ def generate_docs():
       <a href="/" class="btn btn-dashboard">← Open SOC Dashboard</a>
       <a href="/redoc" class="btn btn-secondary">Open ReDoc</a>
       <a href="/openapi.json" target="_blank" class="btn btn-secondary">OpenAPI JSON</a>
-      <a href="/api/v1/health" target="_blank" class="btn btn-secondary">Health Status</a>
     </div>
   </div>
 
@@ -177,13 +176,11 @@ def generate_qr_codes():
     docs_assets_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "docs", "assets"))
     os.makedirs(docs_assets_dir, exist_ok=True)
 
-    # 100% verified URLs
+    # 100% verified working cloud URLs
     targets = {
         "qr_frontend_vercel.png": "https://frontend-phi-indol-81.vercel.app",
-        "qr_frontend_ghpages.png": "https://pravallika2025.github.io/unified-threat-platform/",
         "qr_backend_docs.png": "https://frontend-phi-indol-81.vercel.app/docs",
-        "qr_backend_health.png": "https://frontend-phi-indol-81.vercel.app/api/v1/health",
-        "qr_frontend_localhost.png": "http://localhost:5173",
+        "qr_frontend_ghpages.png": "https://pravallika2025.github.io/unified-threat-platform/",
     }
 
     for filename, url in targets.items():

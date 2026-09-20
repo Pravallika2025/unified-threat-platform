@@ -4,14 +4,6 @@
   "framework": "vite",
   "routes": [
     {
-      "src": "/api/v1/health",
-      "dest": "/api/v1/health.js"
-    },
-    {
-      "src": "/api/health",
-      "dest": "/api/health.js"
-    },
-    {
       "src": "/docs/?",
       "dest": "/docs/index.html"
     },
