@@ -22,15 +22,16 @@
 > [!TIP]
 > Both links and QR codes are verified 100% active, highly available, and scannable worldwide from any smartphone, tablet, or browser.
 
-| 🚀 Production Frontend (Vercel) | ⚡ GitHub Pages Live SPA |
-| :---: | :---: |
-| <img src="./docs/assets/qr_frontend_vercel.png" width="230" alt="Vercel Frontend QR"/> | <img src="./docs/assets/qr_frontend_ghpages.png" width="230" alt="GitHub Pages QR"/> |
-| [**Open Vercel App ↗**](https://frontend-phi-indol-81.vercel.app)<br/>`https://frontend-phi-indol-81.vercel.app` | [**Open GitHub Pages ↗**](https://pravallika2025.github.io/unified-threat-platform/)<br/>`https://pravallika2025.github.io/unified-threat-platform/` |
-| **Status:** 🟢 100% Online (24/7 Cloud) | **Status:** 🟢 100% Online (GitHub CDN) |
+| 🚀 Production Frontend (Vercel) | 📑 Backend API Swagger Docs | ⚡ GitHub Pages Live SPA |
+| :---: | :---: | :---: |
+| <img src="docs/assets/qr_frontend_vercel.png" width="220" alt="Vercel Frontend QR"/> | <img src="docs/assets/qr_backend_docs.png" width="220" alt="Backend Swagger Docs QR"/> | <img src="docs/assets/qr_frontend_ghpages.png" width="220" alt="GitHub Pages QR"/> |
+| [**Open Vercel App ↗**](https://frontend-phi-indol-81.vercel.app)<br/>`https://frontend-phi-indol-81.vercel.app` | [**Open Swagger UI ↗**](https://frontend-phi-indol-81.vercel.app/docs)<br/>`https://frontend-phi-indol-81.vercel.app/docs` | [**Open GitHub Pages ↗**](https://pravallika2025.github.io/unified-threat-platform/)<br/>`https://pravallika2025.github.io/unified-threat-platform/` |
+| **Status:** 🟢 100% Online (24/7 Cloud) | **Status:** 🟢 100% Online (Interactive API) | **Status:** 🟢 100% Online (GitHub CDN) |
 
 ---
 
-## <a id="features"></a>🎯 Features
+<a id="features"></a>
+## 🎯 Features
 
 ### 🔐 Authentication & Access Control
 - JWT-based authentication with refresh tokens
@@ -92,7 +93,8 @@
 
 ---
 
-## <a id="quick-start"></a>🚀 Quick Start
+<a id="quick-start"></a>
+## 🚀 Quick Start
 
 ### Option 1: Docker (Recommended)
 
@@ -184,7 +186,8 @@ python scripts/verify_audit_chain.py
 
 ---
 
-## <a id="architecture"></a>🏗️ Architecture
+<a id="architecture"></a>
+## 🏗️ Architecture
 
 ```
 unified-threat-platform/
@@ -240,7 +243,8 @@ unified-threat-platform/
 
 ---
 
-## <a id="demo-video"></a>🎬 Demo Video
+<a id="demo-video"></a>
+## 🎬 Demo Video
 
 A walkthrough demonstrating live login, dashboard KPI telemetry, severity distribution charts, incident queue inspection, human review and remediation approval gate, real-time WebSocket telemetry feed, and cryptographic audit hash chain validation:
 
@@ -255,7 +259,8 @@ A walkthrough demonstrating live login, dashboard KPI telemetry, severity distri
 
 ---
 
-## <a id="screenshots"></a>📸 Screenshots
+<a id="screenshots"></a>
+## 📸 Screenshots
 
 ### 🔐 Login Page
 ![Login Dashboard](./docs/screenshots/login.png)
@@ -312,11 +317,24 @@ A walkthrough demonstrating live login, dashboard KPI telemetry, severity distri
 
 ---
 
-## <a id="api-reference"></a>🔌 API Reference
+<a id="api-reference"></a>
+## 🔌 API Reference & Interactive Swagger
 
-Full interactive API documentation available at:
-- **Swagger UI:** http://localhost:8000/docs
-- **ReDoc:** http://localhost:8000/redoc
+### 🌐 Live Cloud Interactive Documentation (No Local Setup Required)
+Access the live interactive Swagger UI and API endpoints directly from any browser or mobile device:
+
+- **Interactive Swagger UI:** [https://frontend-phi-indol-81.vercel.app/docs](https://frontend-phi-indol-81.vercel.app/docs)
+- **Interactive ReDoc Documentation:** [https://frontend-phi-indol-81.vercel.app/redoc](https://frontend-phi-indol-81.vercel.app/redoc)
+- **Live Health Status API:** [https://frontend-phi-indol-81.vercel.app/api/v1/health](https://frontend-phi-indol-81.vercel.app/api/v1/health)
+- **OpenAPI 3.1 Specification JSON:** [https://frontend-phi-indol-81.vercel.app/openapi.json](https://frontend-phi-indol-81.vercel.app/openapi.json)
+
+### 💻 Local Development Server API
+When running the backend locally (e.g. via `start.bat` or `uvicorn app.main:app --port 8000`):
+- **Local Swagger UI:** `http://localhost:8000/docs`
+- **Local ReDoc:** `http://localhost:8000/redoc`
+- **Local Health Check:** `http://localhost:8000/api/v1/health`
+
+> 💡 **Note on Localhost URLs:** Localhost links (`http://localhost:...`) only connect when the services are actively running on your local machine. For reviewing the live project and scanning QR codes from mobile or cloud, use the **Live Cloud** links above.
 
 ### Key Endpoints
 

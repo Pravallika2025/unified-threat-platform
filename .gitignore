@@ -18,3 +18,5 @@ build/
 coverage/
 *.log
 evidence-store/
+release/
+*.zip

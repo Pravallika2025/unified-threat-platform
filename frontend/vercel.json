@@ -12,6 +12,22 @@
       "dest": "/api/health.js"
     },
     {
+      "src": "/docs/?",
+      "dest": "/docs/index.html"
+    },
+    {
+      "src": "/docs/(.*)",
+      "dest": "/docs/$1"
+    },
+    {
+      "src": "/redoc/?",
+      "dest": "/redoc/index.html"
+    },
+    {
+      "src": "/openapi.json",
+      "dest": "/openapi.json"
+    },
+    {
       "handle": "filesystem"
     },
     {
