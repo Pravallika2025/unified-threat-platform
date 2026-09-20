@@ -20,13 +20,26 @@
 ## 📱 Live Cloud Deployments & Instant QR Code Access
 
 > [!TIP]
-> Both links and QR codes are verified 100% active, highly available, and scannable worldwide from any smartphone, tablet, or browser.
+> All links and QR codes below are verified 100% active. Cloud links work globally on any device. Localhost links work only when the platform is running locally via `start.bat`.
+
+### 🌐 Cloud (Works Anywhere — No Setup Required)
 
 | 🚀 Production Frontend (Vercel) | 📑 Backend API Swagger Docs | ⚡ GitHub Pages Live SPA |
 | :---: | :---: | :---: |
 | <img src="docs/assets/qr_frontend_vercel.png" width="220" alt="Vercel Frontend QR"/> | <img src="docs/assets/qr_backend_docs.png" width="220" alt="Backend Swagger Docs QR"/> | <img src="docs/assets/qr_frontend_ghpages.png" width="220" alt="GitHub Pages QR"/> |
 | [**Open Vercel App ↗**](https://frontend-phi-indol-81.vercel.app)<br/>`https://frontend-phi-indol-81.vercel.app` | [**Open Swagger UI ↗**](https://frontend-phi-indol-81.vercel.app/docs)<br/>`https://frontend-phi-indol-81.vercel.app/docs` | [**Open GitHub Pages ↗**](https://pravallika2025.github.io/unified-threat-platform/)<br/>`https://pravallika2025.github.io/unified-threat-platform/` |
 | **Status:** 🟢 100% Online (24/7 Cloud) | **Status:** 🟢 100% Online (Interactive API) | **Status:** 🟢 100% Online (GitHub CDN) |
+
+### 💻 Localhost (After Running `start.bat` Locally)
+
+> [!NOTE]
+> These links only work on the machine where `start.bat` (or Docker) is actively running. Click them after launching the platform locally.
+
+| 🌐 Frontend UI | 📑 Backend Swagger Docs | 📖 Backend ReDoc |
+| :---: | :---: | :---: |
+| [**http://localhost:5173**](http://localhost:5173) | [**http://localhost:8000/docs**](http://localhost:8000/docs) | [**http://localhost:8000/redoc**](http://localhost:8000/redoc) |
+| React + TypeScript SOC Dashboard | Interactive FastAPI Swagger UI | ReDoc Alternative API Reference |
+| 🔑 Login: `admin@threatplatform.dev` / `Admin@12345` | 44 REST API endpoints | Full OpenAPI 3.1 spec |
 
 ---
 
@@ -110,9 +123,11 @@ cp .env.example .env
 docker compose up --build
 ```
 
-**Local Endpoints (Accessible when started locally):**
-- 🌐 **Frontend UI:** `localhost:5173` (open in your local browser)
-- ⚙️ **Backend API Docs:** `localhost:8000/docs` (open in your local browser)
+**Local Endpoints (click after `start.bat` or `docker compose up`):**
+- 🌐 **Frontend UI:** [http://localhost:5173](http://localhost:5173)
+- ⚙️ **Backend Swagger API Docs:** [http://localhost:8000/docs](http://localhost:8000/docs)
+- 📖 **Backend ReDoc:** [http://localhost:8000/redoc](http://localhost:8000/redoc)
+- ☁️ **Vercel Cloud Frontend:** [https://frontend-phi-indol-81.vercel.app](https://frontend-phi-indol-81.vercel.app)
 - 🔑 **Login:** `admin@threatplatform.dev` / `Admin@12345`
 
 ---
@@ -320,19 +335,24 @@ A walkthrough demonstrating live login, dashboard KPI telemetry, severity distri
 <a id="api-reference"></a>
 ## 🔌 API Reference & Interactive Swagger
 
-### 🌐 Live Cloud Interactive Documentation (100% Online)
-Access the live interactive Swagger UI and API endpoints directly anywhere from any browser or mobile device:
+### 🌐 Live Cloud Interactive Documentation (100% Online — No Local Setup)
 
-- **Interactive Swagger UI:** [https://frontend-phi-indol-81.vercel.app/docs](https://frontend-phi-indol-81.vercel.app/docs)
-- **Interactive ReDoc Documentation:** [https://frontend-phi-indol-81.vercel.app/redoc](https://frontend-phi-indol-81.vercel.app/redoc)
-- **OpenAPI 3.1 Specification JSON:** [https://frontend-phi-indol-81.vercel.app/openapi.json](https://frontend-phi-indol-81.vercel.app/openapi.json)
+| Service | URL |
+|---------|-----|
+| **Vercel Frontend** | [https://frontend-phi-indol-81.vercel.app](https://frontend-phi-indol-81.vercel.app) |
+| **Swagger UI (Cloud)** | [https://frontend-phi-indol-81.vercel.app/docs](https://frontend-phi-indol-81.vercel.app/docs) |
+| **ReDoc (Cloud)** | [https://frontend-phi-indol-81.vercel.app/redoc](https://frontend-phi-indol-81.vercel.app/redoc) |
+| **OpenAPI 3.1 JSON** | [https://frontend-phi-indol-81.vercel.app/openapi.json](https://frontend-phi-indol-81.vercel.app/openapi.json) |
 
-### 💻 Local Development Server API
-When running the backend locally on your system (via `start.bat` or `uvicorn app.main:app --port 8000`):
-- **Local Swagger UI:** `localhost:8000/docs` (open locally in browser)
-- **Local ReDoc:** `localhost:8000/redoc` (open locally in browser)
+### 💻 Local Development Server (After Running `start.bat`)
 
-> 💡 **Note:** Localhost paths (`localhost:...`) require running the project locally on your machine. For browsing the live project online and scanning mobile QR codes, use the **Live Cloud** Swagger documentation links above.
+| Service | URL |
+|---------|-----|
+| **Frontend UI** | [http://localhost:5173](http://localhost:5173) |
+| **Backend Swagger UI** | [http://localhost:8000/docs](http://localhost:8000/docs) |
+| **Backend ReDoc** | [http://localhost:8000/redoc](http://localhost:8000/redoc) |
+
+> 💡 **Note:** Localhost links (`http://localhost:...`) are clickable but only connect when `start.bat` or `docker compose up` is actively running on your local machine. For reviewing the project online or scanning QR codes from mobile, use the **Live Cloud** links above.
 
 ### Key Endpoints
 
