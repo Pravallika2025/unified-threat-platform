@@ -5,15 +5,14 @@ import sys
 
 cloud_urls = {
     "frontend_vercel": "https://frontend-phi-indol-81.vercel.app",
-    "backend_vercel_health": "https://frontend-phi-indol-81.vercel.app/api/v1/health",
     "backend_swagger_ui": "https://frontend-phi-indol-81.vercel.app/docs",
     "backend_openapi_json": "https://frontend-phi-indol-81.vercel.app/openapi.json",
+    "backend_redoc": "https://frontend-phi-indol-81.vercel.app/redoc",
     "frontend_github_pages": "https://pravallika2025.github.io/unified-threat-platform/",
 }
 
 local_urls = {
     "frontend_localhost": "http://localhost:5173",
-    "backend_localhost_health": "http://localhost:8000/api/v1/health",
     "backend_localhost_docs": "http://localhost:8000/docs",
 }
 

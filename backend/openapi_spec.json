@@ -6,25 +6,6 @@
     "version": "0.1.0"
   },
   "paths": {
-    "/api/v1/health": {
-      "get": {
-        "tags": [
-          "health"
-        ],
-        "summary": "Health",
-        "operationId": "health_api_v1_health_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/v1/auth/login": {
       "post": {
         "tags": [

@@ -110,9 +110,9 @@ cp .env.example .env
 docker compose up --build
 ```
 
-**Access:**
-- 🌐 **Frontend (Local):** http://localhost:5173
-- ⚙️ **Backend API (Local):** http://localhost:8000/docs
+**Local Endpoints (Accessible when started locally):**
+- 🌐 **Frontend UI:** `localhost:5173` (open in your local browser)
+- ⚙️ **Backend API Docs:** `localhost:8000/docs` (open in your local browser)
 - 🔑 **Login:** `admin@threatplatform.dev` / `Admin@12345`
 
 ---
@@ -124,7 +124,7 @@ docker compose up --build
   *(Built and published automatically via `.github/workflows/deploy-pages.yml`)*
 - **Backend Cloud Deployment (Render / 1-Click):**
   - Includes `render.yaml` configuration for 1-click cloud deployment on [Render](https://render.com).
-  - Simply connect this GitHub repository on Render, and it automatically starts the backend API with health checks and SSL enabled!
+  - Simply connect this GitHub repository on Render, and it automatically starts the backend API with SSL enabled!
 
 ### 2. Local Network / Wi-Fi Access (Phones, Tablets & Laptops on Same Network)
 To open the live dashboard from any other laptop or mobile phone connected to your Wi-Fi or Mobile Hotspot:
@@ -320,21 +320,19 @@ A walkthrough demonstrating live login, dashboard KPI telemetry, severity distri
 <a id="api-reference"></a>
 ## 🔌 API Reference & Interactive Swagger
 
-### 🌐 Live Cloud Interactive Documentation (No Local Setup Required)
-Access the live interactive Swagger UI and API endpoints directly from any browser or mobile device:
+### 🌐 Live Cloud Interactive Documentation (100% Online)
+Access the live interactive Swagger UI and API endpoints directly anywhere from any browser or mobile device:
 
 - **Interactive Swagger UI:** [https://frontend-phi-indol-81.vercel.app/docs](https://frontend-phi-indol-81.vercel.app/docs)
 - **Interactive ReDoc Documentation:** [https://frontend-phi-indol-81.vercel.app/redoc](https://frontend-phi-indol-81.vercel.app/redoc)
-- **Live Health Status API:** [https://frontend-phi-indol-81.vercel.app/api/v1/health](https://frontend-phi-indol-81.vercel.app/api/v1/health)
 - **OpenAPI 3.1 Specification JSON:** [https://frontend-phi-indol-81.vercel.app/openapi.json](https://frontend-phi-indol-81.vercel.app/openapi.json)
 
 ### 💻 Local Development Server API
-When running the backend locally (e.g. via `start.bat` or `uvicorn app.main:app --port 8000`):
-- **Local Swagger UI:** `http://localhost:8000/docs`
-- **Local ReDoc:** `http://localhost:8000/redoc`
-- **Local Health Check:** `http://localhost:8000/api/v1/health`
+When running the backend locally on your system (via `start.bat` or `uvicorn app.main:app --port 8000`):
+- **Local Swagger UI:** `localhost:8000/docs` (open locally in browser)
+- **Local ReDoc:** `localhost:8000/redoc` (open locally in browser)
 
-> 💡 **Note on Localhost URLs:** Localhost links (`http://localhost:...`) only connect when the services are actively running on your local machine. For reviewing the live project and scanning QR codes from mobile or cloud, use the **Live Cloud** links above.
+> 💡 **Note:** Localhost paths (`localhost:...`) require running the project locally on your machine. For browsing the live project online and scanning mobile QR codes, use the **Live Cloud** Swagger documentation links above.
 
 ### Key Endpoints
 
