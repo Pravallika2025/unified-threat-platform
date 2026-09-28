@@ -36,6 +36,18 @@ class Settings(BaseSettings):
     ENABLE_BACKGROUND_SCHEDULER: bool = True
     SCHEDULER_INTERVAL_SECONDS: int = 60
 
+    # ---- SMTP Email Alerts ----
+    SMTP_HOST: str = ""
+    SMTP_PORT: int = 587
+    SMTP_USER: str = ""
+    SMTP_PASSWORD: str = ""
+    SMTP_FROM: str = "alerts@threatplatform.dev"
+    ALERT_EMAIL_RECIPIENT: str = "soc-team@threatplatform.dev"
+
+    # ---- Webhook Alerts (Slack / Teams / SIEM) ----
+    WEBHOOK_ALERT_URL: str = ""
+    WEBHOOK_SIGNING_SECRET: str = "threat-platform-webhook-secret"
+
     @model_validator(mode="after")
     def validate_production_settings(self) -> "Settings":
         if self.ENVIRONMENT == "production":

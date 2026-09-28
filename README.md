@@ -97,11 +97,29 @@
 - Audit chain integrity verification script
 - Export-ready compliance reports
 
-### 📧 Alert Notifications
-- **In-app WebSocket alerts** — Real-time push notifications
-- **Email notifications** via SMTP (configurable)
-- **Webhook notifications** — POST to custom endpoints
-- Alert severity filtering and routing
+### 📧 Alert Notifications — 3-Channel Fan-Out Architecture
+- **In-app WebSocket alerts** — Real-time push to every connected dashboard (ALL severities)
+- **Email notifications (SMTP)** — HTML email for HIGH & CRITICAL threats only (prevents alert fatigue)
+- **Webhook notifications** — Signed POST to Slack, Teams, or any SIEM endpoint
+
+#### ⚙️ Setting Up Real Email Alerts (Gmail)
+
+1. Enable **2-Step Verification** on your Google Account
+2. Go to [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)
+3. Generate a 16-character App Password
+4. Set the following in your `.env` (or `backend/.env`):
+
+```env
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your-gmail@gmail.com
+SMTP_PASSWORD=xxxx-xxxx-xxxx-xxxx   # 16-char app password
+SMTP_FROM=your-gmail@gmail.com
+ALERT_EMAIL_RECIPIENT=hod@yourcollege.edu
+```
+
+> Without SMTP config → system operates in **audit/mock mode** (logs emails, never crashes).
+> The AI Analyst (Gemini) still works via the in-app UI entry or `VITE_GEMINI_API_KEY`.
 
 ### 📄 Reporting
 - PDF report generation for incidents
