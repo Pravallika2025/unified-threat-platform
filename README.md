@@ -22,6 +22,11 @@
 > [!TIP]
 > All links and QR codes below are verified 100% active. Cloud links work globally on any device. Localhost links work only when the platform is running locally via `start.bat`.
 
+### 🎓 Academic Project Flash Card & Poster
+- 🖨️ **Interactive Web Flash Card:** [`docs/project_flash_card.html`](docs/project_flash_card.html)
+- 📄 **Printable Presentation PDF:** [`docs/project_flash_card.pdf`](docs/project_flash_card.pdf)
+- 🖼️ **Full-Resolution Poster Image:** [`docs/project_flash_card.png`](docs/project_flash_card.png)
+
 ### 🌐 Cloud (Works Anywhere — No Setup Required)
 
 | 🚀 Production Frontend (Vercel) | 📑 Backend API Swagger Docs | ⚡ GitHub Pages Live SPA |
