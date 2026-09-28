@@ -57,8 +57,12 @@
       align-items: center;
       gap: 8px;
     }
-    .print-btn {
-      background: #0284c7;
+    .btn-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .action-btn {
       color: #ffffff;
       border: none;
       padding: 8px 18px;
@@ -69,9 +73,13 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      text-decoration: none;
       transition: all 0.2s;
     }
+    .print-btn { background: #0284c7; }
     .print-btn:hover { background: #0369a1; transform: translateY(-1px); }
+    .download-btn { background: #10b981; }
+    .download-btn:hover { background: #059669; transform: translateY(-1px); }
 
     /* Master Flash Card Container */
     .flashcard {
@@ -312,14 +320,24 @@
     <h2>
       <span>⚡</span> Academic Project Flash Card &amp; Poster — Unified Threat Platform
     </h2>
-    <button class="print-btn" onclick="window.print()">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-        <path d="M6 9V2h12v7"></path>
-        <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"></path>
-        <path d="M6 14h12v8H6z"></path>
-      </svg>
-      Print / Save as PDF
-    </button>
+    <div class="btn-group">
+      <a class="action-btn download-btn" href="project_flash_card.png" download="project_flash_card.png" title="Download High-Resolution PNG Poster">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Download Image (PNG)
+      </a>
+      <button class="action-btn print-btn" onclick="window.print()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M6 9V2h12v7"></path>
+          <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"></path>
+          <path d="M6 14h12v8H6z"></path>
+        </svg>
+        Print / Save as PDF
+      </button>
+    </div>
   </div>
 
   <!-- Master Project Flash Card -->
@@ -334,7 +352,7 @@
         </div>
         <h1>Unified Multi-Environment Cyber Threat Detection &amp; Response Platform</h1>
         <div class="subtext">
-          Autonomous Telemetry Ingestion • MITRE ATT&amp;CK Kill-Chain • ML Anomaly Engine • Gemini AI Analyst • SHA-256 Audit Ledger
+          Autonomous Telemetry Ingestion • MITRE ATT&amp;CK Kill-Chain • ML Anomaly Engine • Google Gemini 2.0 Flash (Latest) • SHA-256 Audit Ledger
         </div>
       </div>
 
@@ -363,7 +381,7 @@
         OBJECTIVE
       </div>
       <div class="info-text">
-        Build a <strong>real-time, autonomous Security Operations Center (SOC)</strong> platform that unifies log ingestion, MITRE ATT&amp;CK-mapped threat detection, ML-based anomaly scoring, human-in-the-loop incident response, and cryptographic tamper-proof audit logging — with a <strong>Google Gemini AI Threat Analyst</strong> chatbot for interactive intelligence support.
+        Build a <strong>real-time, autonomous Security Operations Center (SOC)</strong> platform that unifies log ingestion, MITRE ATT&amp;CK-mapped threat detection, ML-based anomaly scoring, human-in-the-loop incident response, and cryptographic tamper-proof audit logging — with a <strong>Google Gemini 2.0 Flash (Latest Release) AI Threat Analyst</strong> chatbot for interactive threat intelligence.
       </div>
     </div>
 
@@ -396,7 +414,7 @@
             <div class="wf-icon">🤖</div>
             <div class="wf-step">Step 3</div>
             <div class="wf-name">AI Risk Scoring</div>
-            <div class="wf-desc">ML anomaly detection + Gemini AI chat</div>
+            <div class="wf-desc">ML anomaly detection + Gemini 2.0 Flash AI</div>
           </div>
           <div class="wf-card wf-purple">
             <span class="arrow-right">›</span>
@@ -439,7 +457,7 @@
           </div>
           <div class="sv-item">
             <div class="sv-emoji">🤖</div>
-            <div class="sv-name">Ask Gemini AI<br><span style="color:#64748b;font-size:8.5px">Threat Q&amp;A chatbot</span></div>
+            <div class="sv-name">Ask Gemini 2.0 Flash<br><span style="color:#64748b;font-size:8.5px">Latest AI Q&amp;A chatbot</span></div>
           </div>
           <div class="sv-item">
             <div class="sv-emoji">📋</div>
@@ -554,7 +572,7 @@
         <div class="badge-group">
           <div class="badge-group-title">🤖 AI / Intelligence</div>
           <div class="badge-grid">
-            <div class="tech-pill highlight"><span class="icon">✨</span>Google Gemini Flash</div>
+            <div class="tech-pill highlight"><span class="icon">✨</span>Google Gemini 2.0 Flash (Latest AI)</div>
             <div class="tech-pill"><span class="icon">🏹</span>MITRE ATT&amp;CK</div>
             <div class="tech-pill"><span class="icon">🌐</span>AbuseIPDB API</div>
             <div class="tech-pill"><span class="icon">🔢</span>SHA-256 Crypto</div>
@@ -584,7 +602,7 @@
         </div>
         <div class="cs-name">🏥 MedCorp Healthcare Ransomware Breach (2024)<br><span style="font-size:10px;color:#b45309">Multi-Hospital Network Attack — 3,000+ Servers Compromised</span></div>
         <div style="margin-top:6px;">
-          <span class="ai-badge">✨ AI Advantage: Gemini LLM assists analysts in real-time during breach investigation</span>
+          <span class="ai-badge">✨ AI Advantage: Google Gemini 2.0 Flash (Latest) assists analysts in real-time</span>
         </div>
       </div>
       <div class="cs-grid">
@@ -626,7 +644,7 @@
         </div>
         <div class="link-entry">
           <span class="label">🤖 Gemini AI:</span>
-          <a href="https://aistudio.google.com/apikey" target="_blank">Get Free API Key →</a>
+          <a href="https://aistudio.google.com/apikey" target="_blank">Gemini 2.0 Flash Free Key →</a>
         </div>
         <div class="link-entry">
           <span class="label">🔑 Login:</span>
