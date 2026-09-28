@@ -1,22 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui";
 import { useAuth } from "@/lib/auth/AuthContext";
+import { getRegisteredUsers } from "@/lib/api/endpoints";
+import type { User } from "@/types/api";
 
 export function LoginPage() {
-  const { user, signIn, loginDemo } = useAuth();
+  const { user, signIn, loginDemo, loginRegisteredUser } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const [email, setEmail] = useState("admin@threatplatform.dev");
+  const stateData = location.state as { registeredEmail?: string; fullName?: string } | null;
+
+  const [registeredList, setRegisteredList] = useState<User[]>([]);
+  const [email, setEmail] = useState(stateData?.registeredEmail || "admin@threatplatform.dev");
   const [password, setPassword] = useState("Admin@12345");
   const [totp, setTotp] = useState("");
   const [needsTotp, setNeedsTotp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [notice, setNotice] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(
+    stateData?.registeredEmail
+      ? `Registration successful for ${stateData.fullName || stateData.registeredEmail}! You can now sign in.`
+      : null,
+  );
   const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    const list = getRegisteredUsers();
+    setRegisteredList(list);
+    if (!stateData?.registeredEmail && list.length > 0) {
+      // If we have registered users, don't overwrite unless empty
+    }
+  }, [stateData]);
 
   if (user) return <Navigate to="/" replace />;
 
@@ -36,8 +54,14 @@ export function LoginPage() {
         return;
       }
       console.warn("Sign in notice:", err);
-      const role = loginEmail.toLowerCase().includes("analyst") ? "analyst" : "admin";
-      loginDemo(role);
+      // Check registered users
+      const match = registeredList.find((u) => u.email.toLowerCase() === loginEmail.toLowerCase());
+      if (match) {
+        loginRegisteredUser(match);
+      } else {
+        const role = loginEmail.toLowerCase().includes("analyst") ? "analyst" : "admin";
+        loginDemo(role);
+      }
       navigate("/", { replace: true });
     } finally {
       setBusy(false);
@@ -60,6 +84,11 @@ export function LoginPage() {
     setEmail("analyst@threatplatform.dev");
     setPassword("Analyst@12345");
     loginDemo("analyst");
+    navigate("/", { replace: true });
+  }
+
+  function loginAsRegistered(u: User) {
+    loginRegisteredUser(u);
     navigate("/", { replace: true });
   }
 
@@ -100,17 +129,19 @@ export function LoginPage() {
           </div>
 
           {/* Quick One-Click Role Credentials Card */}
-          <div className="rounded-xl border border-accent/30 bg-panel/80 p-4 shadow-glass backdrop-blur-md">
-            <div className="flex items-center justify-between mb-3 border-b border-line/60 pb-2">
+          <div className="rounded-xl border border-accent/30 bg-panel/80 p-4 shadow-glass backdrop-blur-md space-y-3">
+            <div className="flex items-center justify-between border-b border-line/60 pb-2">
               <span className="eyebrow text-accent font-semibold flex items-center gap-1.5">
                 <span className="h-2 w-2 rounded-full bg-accent animate-ping" />
-                Quick Instant Launch
+                Authorized Operators &amp; Instant Launch
               </span>
               <span className="font-mono text-[0.625rem] text-faint">ONE-CLICK SIGN IN</span>
             </div>
-            <p className="text-xs text-muted mb-3">
-              Select an authorized operator profile to bypass manual entry and test the live operations dashboard immediately:
+            
+            <p className="text-xs text-muted">
+              Select an authorized operator profile or newly registered user to enter the live operations dashboard immediately:
             </p>
+
             <div className="grid grid-cols-2 gap-2.5">
               <button
                 type="button"
@@ -137,6 +168,54 @@ export function LoginPage() {
                 <span className="text-[0.6875rem] font-mono text-muted mt-0.5">analyst@threatplatform.dev</span>
                 <span className="text-[0.625rem] text-cyan/80 mt-1 font-semibold">Investigation &amp; Triage →</span>
               </button>
+            </div>
+
+            {/* Display registered users if available */}
+            {registeredList.length > 0 && (
+              <div className="pt-2 border-t border-line/50">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="eyebrow text-ok font-semibold text-[0.6875rem] flex items-center gap-1">
+                    <span className="h-1.5 w-1.5 rounded-full bg-ok animate-pulse" />
+                    Registered Users Detected ({registeredList.length})
+                  </span>
+                  <span className="text-[0.625rem] font-mono text-faint">CLICK TO SIGN IN</span>
+                </div>
+                <div className="space-y-2 max-h-32 overflow-y-auto pr-1">
+                  {registeredList.map((regUser) => (
+                    <button
+                      key={regUser.id}
+                      type="button"
+                      onClick={() => loginAsRegistered(regUser)}
+                      className="w-full flex items-center justify-between p-2 rounded-lg border border-ok/40 bg-ok/10 hover:bg-ok/20 hover:border-ok transition-all text-left cursor-pointer group"
+                    >
+                      <div className="flex items-center gap-2">
+                        <div className="h-6 w-6 rounded-full bg-ok/20 border border-ok/40 flex items-center justify-center font-mono text-xs font-bold text-ok">
+                          {regUser.full_name?.charAt(0) || "U"}
+                        </div>
+                        <div>
+                          <p className="text-xs font-semibold text-white group-hover:text-ok leading-tight">
+                            {regUser.full_name}
+                          </p>
+                          <p className="text-[0.6875rem] font-mono text-muted">{regUser.email}</p>
+                        </div>
+                      </div>
+                      <span className="text-[0.6875rem] text-ok font-semibold flex items-center gap-1">
+                        Sign In →
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div className="pt-2 flex items-center justify-between text-xs">
+              <span className="text-muted">Need a personalized operator identity?</span>
+              <Link
+                to="/register"
+                className="inline-flex items-center gap-1 text-cyan hover:underline font-semibold"
+              >
+                + Register New User
+              </Link>
             </div>
           </div>
 
@@ -196,15 +275,21 @@ export function LoginPage() {
                 onClick={loginAsAdmin}
                 className="flex-1 py-1.5 px-2 rounded-lg border border-accent/40 bg-accent/10 text-xs font-semibold text-accent hover:bg-accent/20 cursor-pointer"
               >
-                ⚡ Fill Admin
+                ⚡ Admin
               </button>
               <button
                 type="button"
                 onClick={loginAsAnalyst}
                 className="flex-1 py-1.5 px-2 rounded-lg border border-line/80 bg-raised/60 text-xs font-semibold text-muted hover:text-white cursor-pointer"
               >
-                🛡️ Fill Analyst
+                🛡️ Analyst
               </button>
+              <Link
+                to="/register"
+                className="py-1.5 px-2.5 rounded-lg border border-cyan/40 bg-cyan/10 text-xs font-semibold text-cyan hover:bg-cyan/20 flex items-center justify-center cursor-pointer"
+              >
+                + Register
+              </Link>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -321,6 +406,19 @@ export function LoginPage() {
                   "Authenticate & Enter Dashboard"
                 )}
               </Button>
+
+              <div className="pt-2">
+                <Link
+                  to="/register"
+                  className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg border border-cyan/40 bg-cyan/10 hover:bg-cyan/20 hover:border-cyan text-cyan text-xs font-semibold tracking-wide transition-all cursor-pointer"
+                >
+                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                  </svg>
+                  <span>New Operator? Register User Account</span>
+                  <span>→</span>
+                </Link>
+              </div>
             </form>
 
             <div className="mt-5 pt-4 border-t border-line/60">

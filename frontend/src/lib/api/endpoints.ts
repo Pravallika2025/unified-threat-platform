@@ -73,6 +73,28 @@ async function withFallback<T>(apiCall: () => Promise<T>, fallbackData: () => T 
   }
 }
 
+export function getRegisteredUsers(): User[] {
+  try {
+    const raw = localStorage.getItem("tp.registered_users");
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function saveRegisteredUser(user: User): void {
+  try {
+    const existing = getRegisteredUsers().filter(
+      (u) => u.email.toLowerCase() !== user.email.toLowerCase(),
+    );
+    existing.unshift(user);
+    localStorage.setItem("tp.registered_users", JSON.stringify(existing));
+    localStorage.setItem("tp.latest_registered_user", JSON.stringify(user));
+  } catch (e) {
+    console.error("Failed to save registered user", e);
+  }
+}
+
 export const endpoints = {
   login: async (email: string, password: string, totp_code?: string): Promise<Tokens> => {
     try {
@@ -95,26 +117,51 @@ export const endpoints = {
   },
 
   register: async (email: string, full_name: string, password: string): Promise<User> => {
-    return withFallback(
-      () => api.post<User>("/auth/register", { email, full_name, password }),
-      () => ({
-        id: `usr_${Date.now()}`,
-        email,
-        full_name,
-        role: "security_analyst",
-        environment_id: null,
-        is_active: true,
-        mfa_enabled: false,
-        created_at: new Date().toISOString(),
-        last_login_at: null,
-      }),
-    );
+    const fallbackUser: User = {
+      id: `usr_${Date.now()}`,
+      email,
+      full_name,
+      role: "security_analyst",
+      environment_id: null,
+      is_active: true,
+      mfa_enabled: false,
+      created_at: new Date().toISOString(),
+      last_login_at: new Date().toISOString(),
+    };
+
+    try {
+      const res = await api.post<User>("/auth/register", { email, full_name, password });
+      saveRegisteredUser(res);
+      return res;
+    } catch (err) {
+      console.warn("Backend register API unreachable. Saving registered user to SOC Sandbox registry.", err);
+      saveRegisteredUser(fallbackUser);
+      return fallbackUser;
+    }
   },
 
   me: async (): Promise<Me> => {
     return withFallback(
       () => api.get<Me>("/auth/me"),
       () => {
+        const currentEmail = localStorage.getItem("tp.current_user_email");
+        if (currentEmail) {
+          const registered = getRegisteredUsers().find(
+            (u) => u.email.toLowerCase() === currentEmail.toLowerCase(),
+          );
+          if (registered) {
+            return {
+              id: registered.id,
+              email: registered.email,
+              full_name: registered.full_name,
+              role: registered.role,
+              environment_id: registered.environment_id,
+              is_active: registered.is_active,
+              mfa_enabled: registered.mfa_enabled,
+              permissions: MOCK_ANALYST.permissions,
+            };
+          }
+        }
         const role = localStorage.getItem(MOCK_ROLE_KEY) || "admin";
         return role === "analyst" ? MOCK_ANALYST : MOCK_ADMIN;
       },
@@ -144,31 +191,52 @@ export const endpoints = {
 
   users: (): Promise<User[]> => {
     return withFallback(
-      () => api.get<User[]>("/users"),
-      () => [
-        {
-          id: MOCK_ADMIN.id,
-          email: MOCK_ADMIN.email,
-          full_name: MOCK_ADMIN.full_name,
-          role: MOCK_ADMIN.role,
-          environment_id: null,
-          is_active: true,
-          mfa_enabled: false,
-          created_at: new Date(Date.now() - 30 * 86400000).toISOString(),
-          last_login_at: new Date().toISOString(),
-        },
-        {
-          id: MOCK_ANALYST.id,
-          email: MOCK_ANALYST.email,
-          full_name: MOCK_ANALYST.full_name,
-          role: MOCK_ANALYST.role,
-          environment_id: "env_corp_hq",
-          is_active: true,
-          mfa_enabled: false,
-          created_at: new Date(Date.now() - 15 * 86400000).toISOString(),
-          last_login_at: new Date(Date.now() - 3600000).toISOString(),
-        },
-      ],
+      async () => {
+        const remoteUsers = await api.get<User[]>("/users");
+        const registered = getRegisteredUsers();
+        const existingEmails = new Set(remoteUsers.map((u) => u.email.toLowerCase()));
+        const merged = [...remoteUsers];
+        for (const reg of registered) {
+          if (!existingEmails.has(reg.email.toLowerCase())) {
+            merged.push(reg);
+          }
+        }
+        return merged;
+      },
+      () => {
+        const base: User[] = [
+          {
+            id: MOCK_ADMIN.id,
+            email: MOCK_ADMIN.email,
+            full_name: MOCK_ADMIN.full_name,
+            role: MOCK_ADMIN.role,
+            environment_id: null,
+            is_active: true,
+            mfa_enabled: false,
+            created_at: new Date(Date.now() - 30 * 86400000).toISOString(),
+            last_login_at: new Date().toISOString(),
+          },
+          {
+            id: MOCK_ANALYST.id,
+            email: MOCK_ANALYST.email,
+            full_name: MOCK_ANALYST.full_name,
+            role: MOCK_ANALYST.role,
+            environment_id: "env_corp_hq",
+            is_active: true,
+            mfa_enabled: false,
+            created_at: new Date(Date.now() - 15 * 86400000).toISOString(),
+            last_login_at: new Date(Date.now() - 3600000).toISOString(),
+          },
+        ];
+        const registered = getRegisteredUsers();
+        const baseEmails = new Set(base.map((u) => u.email.toLowerCase()));
+        for (const reg of registered) {
+          if (!baseEmails.has(reg.email.toLowerCase())) {
+            base.push(reg);
+          }
+        }
+        return base;
+      },
     );
   },
 
