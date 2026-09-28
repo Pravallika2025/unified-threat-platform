@@ -113,6 +113,15 @@ const NAV_ITEMS: NavItem[] = [
       </svg>
     ),
   },
+  {
+    to: "/ai-analyst",
+    label: "AI Threat Analyst",
+    icon: (active) => (
+      <svg className={`h-4 w-4 shrink-0 ${active ? "text-accent" : "text-muted"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h16a2 2 0 012 2v10a2 2 0 01-2 2h-2m-6-8a2 2 0 110-4 2 2 0 010 4z" />
+      </svg>
+    ),
+  },
 ];
 
 import { isMockMode } from "@/lib/api/endpoints";
@@ -231,8 +240,10 @@ export function Shell() {
         </header>
 
         {/* Page View Container */}
-        <main className="flex-1 overflow-x-hidden p-5 md:p-8">
-          <Outlet />
+        <main className="flex-1 overflow-hidden flex flex-col">
+          <div className="flex-1 overflow-y-auto p-5 md:p-8 [&_.ai-fullpage]:p-0 [&_.ai-fullpage]:-m-5 [&_.ai-fullpage]:md:-m-8">
+            <Outlet />
+          </div>
         </main>
       </div>
     </div>

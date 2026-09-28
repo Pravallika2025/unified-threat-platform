@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import { Shell } from "@/components/layout/Shell";
 import { Loading } from "@/components/ui";
+import { AiAnalystPage } from "@/features/ai_analyst/AiAnalystPage";
 import { AlertsPage } from "@/features/alerts/AlertsPage";
 import { AuditPage } from "@/features/audit/AuditPage";
 import { LoginPage } from "@/features/auth/LoginPage";
@@ -48,6 +49,7 @@ export function AppRoutes() {
         <Route path="reports" element={<ReportsPage />} />
         <Route path="users" element={<UsersPage />} />
         <Route path="audit" element={<AuditPage />} />
+        <Route path="ai-analyst" element={<AiAnalystPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
