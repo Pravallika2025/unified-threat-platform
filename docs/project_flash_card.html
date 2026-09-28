@@ -32,25 +32,25 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px 10px;
+      padding: 16px 8px;
       -webkit-font-smoothing: antialiased;
     }
 
     /* Top Action Bar */
     .action-bar {
       width: 100%;
-      max-width: 950px;
+      max-width: 960px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 14px;
-      padding: 10px 16px;
+      margin-bottom: 12px;
+      padding: 9px 16px;
       background: #ffffff;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.06);
     }
     .action-bar h2 {
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 700;
       color: var(--primary-blue);
       display: flex;
@@ -60,25 +60,25 @@
     .a4-badge {
       background: #dbeafe;
       color: #1d4ed8;
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 800;
-      padding: 3px 8px;
-      border-radius: 6px;
+      padding: 2.5px 7px;
+      border-radius: 5px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.4px;
     }
     .btn-group { display: flex; align-items: center; gap: 8px; }
     .action-btn {
       color: #ffffff;
       border: none;
-      padding: 7px 14px;
-      border-radius: 8px;
-      font-size: 12px;
+      padding: 6.5px 13px;
+      border-radius: 7px;
+      font-size: 11.5px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       text-decoration: none;
       transition: all 0.2s;
     }
@@ -89,15 +89,15 @@
 
     /* Master A4 Flash Card Container */
     .flashcard {
-      width: 950px;
+      width: 960px;
       background: #ffffff;
-      border-radius: 20px;
+      border-radius: 18px;
       border: 1.5px solid #cbd5e1;
       box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
-      padding: 22px 24px 18px 24px;
+      padding: 20px 22px 16px 22px;
       display: flex;
       flex-direction: column;
-      gap: 11px;
+      gap: 10px;
       position: relative;
       overflow: hidden;
     }
@@ -112,60 +112,60 @@
     /* 1. Header Grid */
     .header-grid {
       display: grid;
-      grid-template-columns: 1.35fr 1fr;
-      gap: 16px;
+      grid-template-columns: 1.38fr 1fr;
+      gap: 14px;
       align-items: center;
-      padding-bottom: 10px;
+      padding-bottom: 9px;
       border-bottom: 2px solid #e2e8f0;
     }
     .title-banner {
       background: linear-gradient(135deg, #0b2545 0%, #133966 60%, #1d4ed8 100%);
       color: #ffffff;
-      border-radius: 14px;
-      padding: 16px 18px;
-      box-shadow: 0 6px 16px rgba(11, 37, 69, 0.22);
+      border-radius: 13px;
+      padding: 14px 16px;
+      box-shadow: 0 5px 14px rgba(11, 37, 69, 0.2);
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
     .title-banner h1 {
-      font-size: 18.5px;
+      font-size: 18px;
       font-weight: 800;
       line-height: 1.25;
       letter-spacing: -0.2px;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
       color: #ffffff;
     }
     .title-banner .subtext {
-      font-size: 10px;
+      font-size: 9.5px;
       color: #93c5fd;
       font-weight: 500;
-      line-height: 1.35;
+      line-height: 1.3;
     }
 
-    /* Candidate & Official Crest Metadata */
+    /* Candidate Metadata with Official University Crest */
     .meta-box {
       background: #f8fafc;
       border: 1.5px solid #cbd5e1;
-      border-radius: 14px;
-      padding: 10px 14px;
+      border-radius: 13px;
+      padding: 9px 12px;
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 10px;
       align-items: center;
     }
-    .meta-info { display: flex; flex-direction: column; gap: 2.5px; }
-    .meta-dept { font-size: 9.5px; font-weight: 800; color: #0b2545; letter-spacing: 0.2px; }
-    .meta-college { font-size: 8.5px; font-weight: 700; color: #0284c7; margin-bottom: 2px; }
-    .meta-divider { height: 1px; background: #e2e8f0; margin: 1px 0 3px 0; }
-    .meta-row { font-size: 9.5px; color: #334155; display: flex; gap: 5px; align-items: baseline; }
-    .meta-row .label { font-weight: 700; color: #64748b; font-size: 8.5px; min-width: 78px; }
+    .meta-info { display: flex; flex-direction: column; gap: 2px; }
+    .meta-dept { font-size: 9px; font-weight: 800; color: #0b2545; letter-spacing: 0.2px; }
+    .meta-college { font-size: 8px; font-weight: 700; color: #0284c7; margin-bottom: 2px; }
+    .meta-divider { height: 1px; background: #e2e8f0; margin: 1px 0 2px 0; }
+    .meta-row { font-size: 9px; color: #334155; display: flex; gap: 4px; align-items: baseline; }
+    .meta-row .label { font-weight: 700; color: #64748b; font-size: 8px; min-width: 74px; }
     .meta-row .val { font-weight: 800; color: #0f172a; }
     .meta-guide {
-      margin-top: 3px;
-      padding-top: 3px;
+      margin-top: 2px;
+      padding-top: 2px;
       border-top: 1px dashed #cbd5e1;
-      font-size: 9px;
+      font-size: 8.5px;
       font-weight: 700;
       color: #1d4ed8;
     }
@@ -174,16 +174,15 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding-left: 4px;
     }
     .logo-img {
-      width: 58px;
-      height: 58px;
+      width: 54px;
+      height: 54px;
       object-fit: contain;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
     }
     .logo-text {
-      font-size: 7.5px;
+      font-size: 7px;
       font-weight: 800;
       color: #831843;
       text-align: center;
@@ -195,8 +194,8 @@
     .info-strip {
       background: #eff6ff;
       border: 1.5px solid #bfdbfe;
-      border-radius: 10px;
-      padding: 8px 12px;
+      border-radius: 9px;
+      padding: 7px 12px;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -204,50 +203,94 @@
     .info-badge {
       background: #1d4ed8;
       color: #ffffff;
-      font-size: 9.5px;
+      font-size: 9px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      padding: 4px 8px;
-      border-radius: 6px;
+      padding: 3.5px 7px;
+      border-radius: 5px;
       display: flex;
       align-items: center;
       gap: 4px;
       flex-shrink: 0;
     }
-    .info-badge svg { width: 13px; height: 13px; stroke: #fff; fill: none; stroke-width: 2.5; }
+    .info-badge svg { width: 12px; height: 12px; stroke: #fff; fill: none; stroke-width: 2.5; }
     .info-text {
-      font-size: 10px;
+      font-size: 9.5px;
       color: #1e3a8a;
-      line-height: 1.4;
+      line-height: 1.35;
       font-weight: 500;
     }
 
-    /* 3. Detailed Workflow Section */
+    /* 3. Detailed Workflow Pipeline (Expanded Detail) */
     .section-title {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 800;
       color: #0b2545;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       display: flex;
       align-items: center;
-      gap: 6px;
-      margin-bottom: 5px;
+      gap: 5px;
+      margin-bottom: 4px;
     }
-    .section-title svg { width: 14px; height: 14px; stroke: var(--accent-blue); fill: none; stroke-width: 2.2; }
-    .workflow-wrap { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 8px 10px; }
-    .workflow-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; position: relative; }
+    .section-title svg { width: 13px; height: 13px; stroke: var(--accent-blue); fill: none; stroke-width: 2.2; }
+    .workflow-wrap {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 11px;
+      padding: 7px 8px;
+    }
+    .workflow-row {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 5px;
+      position: relative;
+    }
     .wf-card {
-      background: #ffffff; border: 1px solid #cbd5e1; border-radius: 9px;
-      padding: 6px 5px; display: flex; flex-direction: column; align-items: center;
-      text-align: center; position: relative; box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 6px 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     }
-    .wf-icon { width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-bottom: 3px; font-size: 12px; }
-    .wf-step { font-size: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 1px; }
-    .wf-name { font-size: 9.5px; font-weight: 700; color: #0f172a; line-height: 1.15; margin-bottom: 2px; }
-    .wf-desc { font-size: 8px; color: #64748b; line-height: 1.15; }
-    .arrow-right { position: absolute; right: -4px; top: 50%; transform: translateY(-50%); font-size: 9px; color: #64748b; z-index: 2; }
+    .wf-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2px;
+      font-size: 12px;
+    }
+    .wf-step { font-size: 7.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 1px; }
+    .wf-name { font-size: 9px; font-weight: 800; color: #0f172a; line-height: 1.15; margin-bottom: 2px; }
+    .wf-desc { font-size: 7.5px; color: #475569; line-height: 1.2; font-weight: 500; }
+    .wf-subdetail {
+      font-size: 6.8px;
+      color: #64748b;
+      margin-top: 2px;
+      padding-top: 2px;
+      border-top: 1px dashed #e2e8f0;
+      width: 100%;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .wf-arrow {
+      position: absolute;
+      right: -5px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 11px;
+      font-weight: 900;
+      color: #94a3b8;
+      z-index: 2;
+    }
 
     .wf-blue { background: #eff6ff; border-color: #bfdbfe; }
     .wf-blue .wf-icon { background: #dbeafe; color: #1d4ed8; } .wf-blue .wf-step { color: #1d4ed8; }
@@ -262,102 +305,194 @@
     .wf-teal { background: #f0fdfa; border-color: #99f6e4; }
     .wf-teal .wf-icon { background: #ccfbf1; color: #0d9488; } .wf-teal .wf-step { color: #0d9488; }
 
-    /* 4. Three-Column Core: Student View Point | Output View Point | Key Features & Tech */
-    .three-col-grid { display: grid; grid-template-columns: 1.15fr 1.15fr 0.95fr; gap: 10px; }
-    .col-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 10px 12px; display: flex; flex-direction: column; gap: 7px; }
-    .col-header { display: flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 800; color: #0b2545; padding-bottom: 4px; border-bottom: 1.5px solid #e2e8f0; }
-    .col-header svg { width: 14px; height: 14px; stroke: #1d4ed8; fill: none; stroke-width: 2.2; }
+    /* 4. Three-Column Section: Student View Flow | Output View Flow | Technologies (Frontend & Backend) */
+    .three-col-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1.15fr 0.95fr;
+      gap: 10px;
+    }
+    .col-card {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 9px 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .col-header {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #0b2545;
+      padding-bottom: 4px;
+      border-bottom: 1.5px solid #e2e8f0;
+    }
+    .col-header svg { width: 13px; height: 13px; stroke: #1d4ed8; fill: none; stroke-width: 2.2; }
 
-    /* Student View Point (Own Words Narrative + Steps) */
+    /* Student View Point: Quote & Step-by-Step Flowchart */
     .human-quote-box {
       background: #eff6ff;
       border: 1px solid #bfdbfe;
       border-left: 3px solid #1d4ed8;
-      border-radius: 8px;
-      padding: 7px 9px;
-      font-size: 9px;
+      border-radius: 7px;
+      padding: 6px 8px;
+      font-size: 8.5px;
       color: #1e3a8a;
       line-height: 1.35;
       font-style: italic;
     }
     .human-quote-box strong { font-style: normal; color: #0b2545; }
-    .student-steps-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5px;
+
+    .flowchart-vertical {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
       margin-top: 2px;
     }
-    .sv-step-item {
+    .fc-box {
       background: #ffffff;
-      border: 1px solid #cbd5e1;
-      border-radius: 7px;
-      padding: 4px 6px;
+      border: 1.2px solid #93c5fd;
+      border-radius: 6px;
+      padding: 4px 7px;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
     }
-    .sv-step-icon { font-size: 12px; flex-shrink: 0; }
-    .sv-step-title { font-size: 8.5px; font-weight: 800; color: #0f172a; line-height: 1.1; }
-    .sv-step-sub { font-size: 7.5px; color: #64748b; line-height: 1.1; }
+    .fc-num {
+      background: #1d4ed8;
+      color: #ffffff;
+      font-size: 7.5px;
+      font-weight: 800;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .fc-title { font-size: 8.5px; font-weight: 800; color: #0f172a; line-height: 1.1; }
+    .fc-desc { font-size: 7.2px; color: #64748b; line-height: 1.1; }
+    .fc-arrow-down {
+      text-align: center;
+      font-size: 9px;
+      font-weight: 900;
+      color: #3b82f6;
+      line-height: 0.8;
+      margin: -1px 0;
+    }
 
-    /* Output View Point (Dashboard Deliverables) */
-    .output-list { display: flex; flex-direction: column; gap: 5px; }
-    .output-item {
+    /* Output View Point: Flowchart with Arrows */
+    .output-flow-vertical {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .output-fc-box {
       background: #ffffff;
-      border: 1px solid #cbd5e1;
-      border-radius: 7px;
-      padding: 5px 8px;
+      border: 1.2px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 4px 7px;
       display: flex;
       align-items: flex-start;
       gap: 6px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
     }
-    .output-tag {
-      font-size: 8px; font-weight: 800; color: #ffffff; border-radius: 4px;
-      padding: 2px 5px; flex-shrink: 0; margin-top: 1px;
+    .out-tag {
+      font-size: 7.5px;
+      font-weight: 800;
+      color: #ffffff;
+      border-radius: 4px;
+      padding: 2px 4px;
+      flex-shrink: 0;
+      margin-top: 1px;
     }
-    .tag-blue { background: #0284c7; }
-    .tag-green { background: #10b981; }
-    .tag-purple { background: #7c3aed; }
-    .tag-orange { background: #ea580c; }
-    .output-content { font-size: 8.5px; color: #334155; line-height: 1.25; }
-    .output-content strong { color: #0f172a; font-weight: 700; }
-
-    /* Key Features & Tech Stack */
-    .feature-item {
-      display: flex; align-items: flex-start; gap: 5px;
-      font-size: 9px; line-height: 1.25; color: #1e293b; margin-bottom: 4px;
-    }
-    .check-icon {
-      width: 12px; height: 12px; border-radius: 50%; background: #10b981;
-      color: #ffffff; display: flex; align-items: center; justify-content: center;
-      font-size: 8px; flex-shrink: 0; margin-top: 1px;
-    }
-    .tech-grid { display: flex; flex-wrap: wrap; gap: 3.5px; margin-top: 3px; }
-    .tech-pill {
-      background: #ffffff; border: 1px solid #cbd5e1; border-radius: 5px;
-      padding: 2px 5px; font-size: 8.5px; font-weight: 700; color: #334155;
-      display: inline-flex; align-items: center; gap: 3px;
-    }
-    .tech-pill.highlight {
-      background: #ecfdf5; border-color: #6ee7b7; color: #047857; font-weight: 800;
+    .tag-telemetry { background: #0284c7; }
+    .tag-mitre { background: #7c3aed; }
+    .tag-ai { background: #10b981; }
+    .tag-audit { background: #ea580c; }
+    .out-text { font-size: 8px; color: #334155; line-height: 1.25; }
+    .out-text strong { color: #0f172a; font-weight: 700; }
+    .output-arrow-down {
+      text-align: center;
+      font-size: 9px;
+      font-weight: 900;
+      color: #10b981;
+      line-height: 0.8;
+      margin: -1px 0;
     }
 
-    /* 5. 2026 Case Study Section: Title FIRST, then Detailed Differences */
-    .casestudy-box {
-      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-      border: 1.5px solid #fde68a;
-      border-radius: 12px;
-      padding: 9px 12px;
+    /* Column 3: Technologies (Frontend & Backend Categories) */
+    .tech-section {
       display: flex;
       flex-direction: column;
       gap: 6px;
+    }
+    .tech-block {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 5px 7px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .tech-heading {
+      font-size: 8px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .th-front { color: #0284c7; }
+    .th-back { color: #166534; }
+    .th-ai { color: #7c3aed; }
+    .tech-pills-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+    }
+    .tech-chip {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      padding: 1.5px 4.5px;
+      font-size: 8px;
+      font-weight: 700;
+      color: #334155;
+      display: inline-flex;
+      align-items: center;
+      gap: 2.5px;
+    }
+    .tech-chip.gemini {
+      background: #ecfdf5;
+      border-color: #86efac;
+      color: #15803d;
+      font-weight: 800;
+    }
+
+    /* 5. 2026 Case Study: Title FIRST, then Differences Table */
+    .casestudy-box {
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+      border: 1.5px solid #fde68a;
+      border-radius: 11px;
+      padding: 8px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
     }
     .cs-title-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid #fcd34d;
-      padding-bottom: 5px;
+      padding-bottom: 4px;
     }
     .cs-title-left {
       display: flex;
@@ -367,39 +502,39 @@
     .cs-tag {
       background: #b45309;
       color: #ffffff;
-      font-size: 8.5px;
+      font-size: 8px;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      padding: 2px 6px;
-      border-radius: 5px;
+      letter-spacing: 0.4px;
+      padding: 2px 5px;
+      border-radius: 4px;
     }
     .cs-main-title {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 800;
       color: #78350f;
     }
     .ai-badge {
-      background: #10b981; color: #ffffff; font-size: 8.5px; font-weight: 800;
-      padding: 2px 7px; border-radius: 5px; display: inline-flex; align-items: center; gap: 3px;
+      background: #10b981; color: #ffffff; font-size: 8px; font-weight: 800;
+      padding: 2px 6px; border-radius: 4px; display: inline-flex; align-items: center; gap: 3px;
     }
 
     .diff-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 8.5px;
+      font-size: 8px;
       line-height: 1.25;
     }
     .diff-table th {
       background: #fef08a;
       color: #78350f;
       font-weight: 800;
-      padding: 4px 6px;
+      padding: 3.5px 5px;
       text-align: left;
       border: 1px solid #fde047;
     }
     .diff-table td {
-      padding: 4px 6px;
+      padding: 3px 5px;
       border: 1px solid #fef08a;
       background: #ffffff;
     }
@@ -409,36 +544,36 @@
     /* 6. Bottom Links Banner */
     .links-bar {
       background: #0b2545;
-      border-radius: 10px;
-      padding: 7px 14px;
+      border-radius: 9px;
+      padding: 6px 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       color: #ffffff;
     }
     .links-title {
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 800;
       letter-spacing: 0.3px;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
       color: #93c5fd;
     }
     .links-items {
       display: flex;
       align-items: center;
-      gap: 14px;
-      font-size: 9px;
+      gap: 12px;
+      font-size: 8.5px;
     }
     .link-entry { display: flex; align-items: center; gap: 4px; }
-    .link-entry .label { color: #94a3b8; font-weight: 600; font-size: 8px; }
-    .link-entry a { color: #38bdf8; text-decoration: none; font-weight: 700; font-family: 'JetBrains Mono', monospace; font-size: 8.5px; }
+    .link-entry .label { color: #94a3b8; font-weight: 600; font-size: 7.5px; }
+    .link-entry a { color: #38bdf8; text-decoration: none; font-weight: 700; font-family: 'JetBrains Mono', monospace; font-size: 8px; }
 
-    /* Strictly A4 Print Styling */
+    /* Standard A4 Print */
     @page {
       size: A4 portrait;
-      margin: 6mm;
+      margin: 5mm;
     }
     @media print {
       body { background: #ffffff; padding: 0; }
@@ -461,7 +596,7 @@
     </h2>
     <div class="btn-group">
       <a class="action-btn download-btn" href="project_flash_card.png" download="project_flash_card.png" title="Download High-Resolution A4 Poster Image">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
           <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
           <polyline points="7 10 12 15 17 10"></polyline>
           <line x1="12" y1="15" x2="12" y2="3"></line>
@@ -469,7 +604,7 @@
         Download A4 Image (PNG)
       </a>
       <button class="action-btn print-btn" onclick="window.print()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
           <path d="M6 9V2h12v7"></path>
           <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"></path>
           <path d="M6 14h12v8H6z"></path>
@@ -522,140 +657,189 @@
       </div>
     </div>
 
-    <!-- 3. Detailed 6-Stage Project Workflow -->
+    <!-- 3. Detailed Workflow Pipeline with Sub-Details & Connectors -->
     <div>
       <div class="section-title">
         <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
-        Detailed System Architecture &amp; Workflow Pipeline
+        Detailed System Architecture &amp; Processing Pipeline
       </div>
       <div class="workflow-wrap">
         <div class="workflow-row">
           <div class="wf-card wf-blue">
-            <span class="arrow-right">›</span>
+            <span class="wf-arrow">›</span>
             <div class="wf-icon">📥</div>
             <div class="wf-step">Stage 1</div>
             <div class="wf-name">Log Ingestion</div>
-            <div class="wf-desc">AWS, Azure &amp; Linux Syslog live collectors</div>
+            <div class="wf-desc">Multi-source telemetry collection</div>
+            <div class="wf-subdetail">AWS CloudTrail • Azure • Linux Syslog</div>
           </div>
           <div class="wf-card wf-green">
-            <span class="arrow-right">›</span>
+            <span class="wf-arrow">›</span>
             <div class="wf-icon">🔍</div>
             <div class="wf-step">Stage 2</div>
             <div class="wf-name">Normalization</div>
-            <div class="wf-desc">Elastic ECS 1.12 schema standardization</div>
+            <div class="wf-desc">ECS 1.12 Schema Parser</div>
+            <div class="wf-subdetail">IP, User, Host &amp; Event Mapping</div>
           </div>
           <div class="wf-card wf-orange">
-            <span class="arrow-right">›</span>
+            <span class="wf-arrow">›</span>
             <div class="wf-icon">🤖</div>
             <div class="wf-step">Stage 3</div>
             <div class="wf-name">ML Risk Engine</div>
-            <div class="wf-desc">Anomaly scoring (0-100) + Sigma rules</div>
+            <div class="wf-desc">Composite 0-100 Anomaly Scoring</div>
+            <div class="wf-subdetail">Z-Score Outlier + Sigma Rules</div>
           </div>
           <div class="wf-card wf-purple">
-            <span class="arrow-right">›</span>
+            <span class="wf-arrow">›</span>
             <div class="wf-icon">🏹</div>
             <div class="wf-step">Stage 4</div>
             <div class="wf-name">MITRE Matrix</div>
-            <div class="wf-desc">Automated TTP kill-chain categorization</div>
+            <div class="wf-desc">TTP Kill-Chain Correlation</div>
+            <div class="wf-subdetail">T1078, T1059, T1021, T1486</div>
           </div>
           <div class="wf-card wf-pink">
-            <span class="arrow-right">›</span>
+            <span class="wf-arrow">›</span>
             <div class="wf-icon">🔐</div>
             <div class="wf-step">Stage 5</div>
             <div class="wf-name">Audit Ledger</div>
-            <div class="wf-desc">SHA-256 cryptographic chain proof</div>
+            <div class="wf-desc">Cryptographic Hash Chaining</div>
+            <div class="wf-subdetail">SHA-256 Non-Repudiation Chain</div>
           </div>
           <div class="wf-card wf-teal">
             <div class="wf-icon">📊</div>
             <div class="wf-step">Stage 6</div>
             <div class="wf-name">AI Response</div>
-            <div class="wf-desc">Gemini 2.0 Flash SOC chat &amp; reports</div>
+            <div class="wf-desc">Automated Mitigation &amp; Reports</div>
+            <div class="wf-subdetail">Gemini 2.0 Flash SOC Copilot</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 4. Three-Column Core: Student View Point | Output View Point | Features & Stack -->
+    <!-- 4. Three-Column Section: Student View Flow | Output View Flow | Technologies (Frontend & Backend) -->
     <div class="three-col-grid">
 
-      <!-- Column 1: Student View Point (In Own Human Words) -->
+      <!-- Column 1: Student View Point (Quote Unchanged + Step-by-Step Flowchart) -->
       <div class="col-card">
         <div class="col-header">
           <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
           Student View Point (In Own Words)
         </div>
+        <!-- Unchanged Student Quote -->
         <div class="human-quote-box">
           &ldquo;<strong>As a student security operator</strong>, working with raw cloud logs used to feel overwhelming. This platform gave me an intuitive experience: I register my account, pick my profile from the login screen, upload messy multi-cloud logs, and immediately see clear threat classifications instead of endless text. Whenever a critical alert triggers, I simply ask the integrated <strong>Gemini 2.0 Flash AI</strong> to explain the attacker's motive and give me the exact containment commands. The SHA-256 audit chain guarantees my forensic evidence is mathematically unalterable.&rdquo;
         </div>
-        <div class="student-steps-grid">
-          <div class="sv-step-item">
-            <span class="sv-step-icon">🔑</span>
-            <div><div class="sv-step-title">1. One-Click Login</div><div class="sv-step-sub">Recognizes registered users</div></div>
+
+        <!-- Student Flowchart with Step-to-Step Arrow Marks -->
+        <div class="flowchart-vertical">
+          <div class="fc-box">
+            <div class="fc-num">1</div>
+            <div>
+              <div class="fc-title">Student Registration &amp; One-Click Login</div>
+              <div class="fc-desc">Operator profile saved to localStorage; instant one-click login card.</div>
+            </div>
           </div>
-          <div class="sv-step-item">
-            <span class="sv-step-icon">📤</span>
-            <div><div class="sv-step-title">2. Drag-Drop Logs</div><div class="sv-step-sub">Instant ECS 1.12 parsing</div></div>
+          <div class="fc-arrow-down">↓</div>
+          <div class="fc-box">
+            <div class="fc-num">2</div>
+            <div>
+              <div class="fc-title">Drag &amp; Drop Multi-Cloud Log Ingestion</div>
+              <div class="fc-desc">Upload AWS CloudTrail, Azure Audit, or Linux syslogs for instant ECS parsing.</div>
+            </div>
           </div>
-          <div class="sv-step-item">
-            <span class="sv-step-icon">🤖</span>
-            <div><div class="sv-step-title">3. Ask Gemini AI</div><div class="sv-step-sub">Instant TTP breakdown</div></div>
+          <div class="fc-arrow-down">↓</div>
+          <div class="fc-box">
+            <div class="fc-num">3</div>
+            <div>
+              <div class="fc-title">Ask Gemini 2.0 Flash AI Threat Analyst</div>
+              <div class="fc-desc">Direct threat Q&amp;A: explains kill-chain stages and generates mitigation commands.</div>
+            </div>
           </div>
-          <div class="sv-step-item">
-            <span class="sv-step-icon">📊</span>
-            <div><div class="sv-step-title">4. Download Proof</div><div class="sv-step-sub">Signed forensic reports</div></div>
+          <div class="fc-arrow-down">↓</div>
+          <div class="fc-box">
+            <div class="fc-num">4</div>
+            <div>
+              <div class="fc-title">Export Verified Forensic Audit Proof</div>
+              <div class="fc-desc">Download cryptographically signed PDF/CSV reports with SHA-256 evidence.</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Column 2: Output View Point (What You See & Get) -->
+      <!-- Column 2: Output View Point (Flowchart with Step-to-Step Arrow Marks) -->
       <div class="col-card">
         <div class="col-header">
           <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-          Output View Point (Deliverables)
+          Output View Point (Deliverables Flowchart)
         </div>
-        <div class="output-list">
-          <div class="output-item">
-            <span class="output-tag tag-blue">SOC Dashboard</span>
-            <div class="output-content"><strong>Real-Time Threat Telemetry:</strong> Live metrics showing total ingested events, active threats, open incidents, and MTTD (&lt;5 min).</div>
+
+        <!-- Output Flowchart with Step-to-Step Arrow Marks -->
+        <div class="output-flow-vertical">
+          <div class="output-fc-box">
+            <span class="out-tag tag-telemetry">Step 1: Telemetry</span>
+            <div class="out-text"><strong>Live SOC Telemetry Stream:</strong> Real-time counters showing ingested logs, active threats, open incidents, and MTTD (&lt;5 min).</div>
           </div>
-          <div class="output-item">
-            <span class="output-tag tag-purple">MITRE Matrix</span>
-            <div class="output-content"><strong>Automated Kill-Chain Mapping:</strong> Visual matrix highlighting active technique badges (T1078, T1059, T1486) with severity risk gauge.</div>
+          <div class="output-arrow-down">↓</div>
+          <div class="output-fc-box">
+            <span class="out-tag tag-mitre">Step 2: MITRE Matrix</span>
+            <div class="out-text"><strong>Automated Threat Mapping:</strong> Visual matrix highlighting T1078, T1059, T1021, and T1486 with 0–100 composite risk scoring gauge.</div>
           </div>
-          <div class="output-item">
-            <span class="output-tag tag-green">Gemini AI Console</span>
-            <div class="output-content"><strong>Conversational AI Analyst:</strong> Multi-turn LLM chat providing attack narrative, remediation code, and Sigma detection rules.</div>
+          <div class="output-arrow-down">↓</div>
+          <div class="output-fc-box">
+            <span class="out-tag tag-ai">Step 3: AI Intelligence</span>
+            <div class="out-text"><strong>Gemini 2.0 Flash Copilot Console:</strong> Multi-turn LLM chat output with root-cause analysis, threat attribution, and Sigma rules.</div>
           </div>
-          <div class="output-item">
-            <span class="output-tag tag-orange">Forensic Ledger</span>
-            <div class="output-content"><strong>Cryptographic Audit Proof:</strong> Downloadable PDF/CSV reports with SHA-256 hash chains verifying zero tampering.</div>
+          <div class="output-arrow-down">↓</div>
+          <div class="output-fc-box">
+            <span class="out-tag tag-audit">Step 4: Audit Proof</span>
+            <div class="out-text"><strong>Cryptographic Ledger &amp; Reports:</strong> Downloadable PDF/CSV compliance exports with unbroken SHA-256 hashes verifying zero tampering.</div>
           </div>
         </div>
       </div>
 
-      <!-- Column 3: Features & Tech Stack -->
+      <!-- Column 3: Technologies (Categorized as Frontend & Backend) -->
       <div class="col-card">
         <div class="col-header">
           <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-          Features &amp; Tech Stack
+          Technologies Used
         </div>
-        <div>
-          <div class="feature-item"><span class="check-icon">✓</span><span><strong>Cross-Cloud Telemetry:</strong> AWS, Azure, Linux</span></div>
-          <div class="feature-item"><span class="check-icon">✓</span><span><strong>ML Anomaly Engine:</strong> 0-100 risk scoring</span></div>
-          <div class="feature-item"><span class="check-icon">✓</span><span><strong>Human-in-the-Loop:</strong> One-click triage</span></div>
-          <div class="feature-item"><span class="check-icon">✓</span><span><strong>Registered Users:</strong> Quick-login recognition</span></div>
-        </div>
-        <div style="font-size:8.5px; font-weight:800; color:#64748b; text-transform:uppercase; margin-top:2px;">Technologies Used:</div>
-        <div class="tech-grid">
-          <div class="tech-pill highlight"><span class="icon">✨</span>Gemini 2.0 Flash</div>
-          <div class="tech-pill"><span class="icon">⚛️</span>React 18</div>
-          <div class="tech-pill"><span class="icon">🔷</span>TypeScript</div>
-          <div class="tech-pill"><span class="icon">⚡</span>Vite 5</div>
-          <div class="tech-pill"><span class="icon">🐍</span>FastAPI</div>
-          <div class="tech-pill"><span class="icon">🗄️</span>SQLite</div>
-          <div class="tech-pill"><span class="icon">🏹</span>MITRE v14</div>
-          <div class="tech-pill"><span class="icon">🔐</span>SHA-256</div>
-          <div class="tech-pill"><span class="icon">▲</span>Vercel</div>
+        <div class="tech-section">
+          <!-- Frontend Category -->
+          <div class="tech-block">
+            <div class="tech-heading th-front">🖥️ Frontend Technologies</div>
+            <div class="tech-pills-wrap">
+              <span class="tech-chip">⚛️ React 18 SPA</span>
+              <span class="tech-chip">🔷 TypeScript 5</span>
+              <span class="tech-chip">⚡ Vite 5 Bundler</span>
+              <span class="tech-chip">🎨 Tailwind CSS</span>
+              <span class="tech-chip">📊 Lucide Icons</span>
+              <span class="tech-chip">🔄 WebSocket (RT)</span>
+            </div>
+          </div>
+
+          <!-- Backend Category -->
+          <div class="tech-block">
+            <div class="tech-heading th-back">⚙️ Backend &amp; Infrastructure</div>
+            <div class="tech-pills-wrap">
+              <span class="tech-chip">🐍 Python FastAPI</span>
+              <span class="tech-chip">🚀 Uvicorn ASGI</span>
+              <span class="tech-chip">🗄️ SQLite / Postgres</span>
+              <span class="tech-chip">🔴 Redis Task Queue</span>
+              <span class="tech-chip">🔐 JWT Token Auth</span>
+              <span class="tech-chip">🐳 Docker Compose</span>
+            </div>
+          </div>
+
+          <!-- AI & Threat Intelligence -->
+          <div class="tech-block">
+            <div class="tech-heading th-ai">🤖 AI &amp; Cyber Threat Intelligence</div>
+            <div class="tech-pills-wrap">
+              <span class="tech-chip gemini">✨ Gemini 2.0 Flash (Latest AI)</span>
+              <span class="tech-chip">🏹 MITRE ATT&amp;CK v14</span>
+              <span class="tech-chip">🌐 AbuseIPDB API</span>
+              <span class="tech-chip">🔢 SHA-256 Cryptography</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -707,7 +891,7 @@
     <!-- 6. Bottom Links Banner -->
     <div class="links-bar">
       <div class="links-title">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
         </svg>
         Live Project Links
