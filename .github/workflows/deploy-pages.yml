@@ -1,4 +1,5 @@
 name: Deploy Frontend to GitHub Pages
+# force-redeploy: 2026-09-29 – UsersPage operator governance + SMTP modal + registration updates
 
 on:
   push:
@@ -6,6 +7,7 @@ on:
       - master
     paths:
       - "frontend/**"
+      - "backend/**"
       - ".github/workflows/deploy-pages.yml"
   workflow_dispatch:
 
