@@ -26,7 +26,17 @@ class NotificationService:
                 logger.exception("Notification channel %s failed", type(channel).__name__)
 
 
+    def get_email_channel(self) -> EmailChannel | None:
+        for channel in self.channels:
+            if isinstance(channel, EmailChannel):
+                return channel
+        return None
+
+
+notification_service = NotificationService()
+
+
 def register_notification_handlers() -> None:
-    service = NotificationService()
-    event_bus.subscribe(ALERT_RAISED, service.handle_event)
-    event_bus.subscribe(INCIDENT_CREATED, service.handle_event)
+    event_bus.subscribe(ALERT_RAISED, notification_service.handle_event)
+    event_bus.subscribe(INCIDENT_CREATED, notification_service.handle_event)
+
