@@ -241,3 +241,21 @@ export interface RetentionResult {
   };
 }
 
+export interface SmtpConfig {
+  smtp_host: string;
+  smtp_port: number;
+  smtp_user: string;
+  from_addr: string;
+  to_addr: string;
+  is_configured: boolean;
+  is_mock_mode: boolean;
+}
+
+export interface SmtpTestResult {
+  success: boolean;
+  mode: string;
+  message: string;
+  recipient: string;
+}
+
+

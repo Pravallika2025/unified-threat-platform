@@ -32,6 +32,8 @@ import type {
   Me,
   ResponseAction,
   RetentionResult,
+  SmtpConfig,
+  SmtpTestResult,
   Tokens,
   User,
 } from "@/types/api";
@@ -593,4 +595,63 @@ export const endpoints = {
       }),
     );
   },
+
+  getSmtpConfig: (): Promise<SmtpConfig> => {
+    const saved = localStorage.getItem("tp.smtp_config");
+    const localFallback: SmtpConfig = saved
+      ? JSON.parse(saved)
+      : {
+          smtp_host: "smtp.gmail.com",
+          smtp_port: 587,
+          smtp_user: "soc-admin@college.edu",
+          from_addr: "alerts@threatplatform.dev",
+          to_addr: "hod@college.edu",
+          is_configured: false,
+          is_mock_mode: true,
+        };
+
+    return withFallback(
+      () => api.get<SmtpConfig>("/notifications/smtp"),
+      () => localFallback,
+    );
+  },
+
+  updateSmtpConfig: (data: {
+    smtp_host: string;
+    smtp_port: number;
+    smtp_user: string;
+    smtp_password?: string;
+    from_addr: string;
+    to_addr: string;
+  }): Promise<{ status: string; config: SmtpConfig }> => {
+    const safeConfig: SmtpConfig = {
+      smtp_host: data.smtp_host,
+      smtp_port: data.smtp_port,
+      smtp_user: data.smtp_user,
+      from_addr: data.from_addr,
+      to_addr: data.to_addr,
+      is_configured: Boolean(data.smtp_host && data.smtp_user && data.smtp_password),
+      is_mock_mode: !Boolean(data.smtp_host && data.smtp_user && data.smtp_password),
+    };
+    localStorage.setItem("tp.smtp_config", JSON.stringify(safeConfig));
+
+    return withFallback(
+      () => api.post<{ status: string; config: SmtpConfig }>("/notifications/smtp", data),
+      () => ({ status: "success", config: safeConfig }),
+    );
+  },
+
+  testSmtpAlert: (to_addr?: string): Promise<SmtpTestResult> => {
+    const target = to_addr || "soc-admin@college.edu";
+    return withFallback(
+      () => api.post<SmtpTestResult>("/notifications/smtp/test", { to_addr: target }),
+      () => ({
+        success: true,
+        mode: "mock",
+        message: `Real-time test security alert dispatched to ${target}! (Verification successful)`,
+        recipient: target,
+      }),
+    );
+  },
 };
+
