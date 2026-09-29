@@ -29,10 +29,52 @@ async def create_user(
     return await UserService(db).create(data, actor_role=user.role)
 
 
+from pydantic import BaseModel
+from app.core.security.permissions import Role
+
+
+class UserRoleUpdate(BaseModel):
+    role: Role
+
+
+@router.post("/{user_id}/activate", response_model=UserOut)
+async def activate_user(
+    user_id: str,
+    db: AsyncSession = Depends(get_db),
+    _: CurrentUser = Depends(require_permission(Permission.USER_MANAGE)),
+):
+    """Admin approves or re-activates an operator account."""
+    return await UserService(db).set_active(user_id, True)
+
+
 @router.post("/{user_id}/deactivate", response_model=UserOut)
 async def deactivate(
     user_id: str,
     db: AsyncSession = Depends(get_db),
     _: CurrentUser = Depends(require_permission(Permission.USER_MANAGE)),
 ):
+    """Admin disables or suspends an account to prevent misuse."""
     return await UserService(db).set_active(user_id, False)
+
+
+@router.post("/{user_id}/role", response_model=UserOut)
+async def update_user_role(
+    user_id: str,
+    data: UserRoleUpdate,
+    db: AsyncSession = Depends(get_db),
+    _: CurrentUser = Depends(require_permission(Permission.USER_MANAGE)),
+):
+    """Admin changes operator role and permission tier."""
+    return await UserService(db).set_role(user_id, data.role)
+
+
+@router.delete("/{user_id}")
+async def delete_user(
+    user_id: str,
+    db: AsyncSession = Depends(get_db),
+    _: CurrentUser = Depends(require_permission(Permission.USER_MANAGE)),
+):
+    """Admin permanently removes an unauthorized account."""
+    await UserService(db).delete(user_id)
+    return {"status": "deleted", "user_id": user_id}
+

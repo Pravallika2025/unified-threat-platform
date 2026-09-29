@@ -97,6 +97,38 @@ export function saveRegisteredUser(user: User): void {
   }
 }
 
+export function updateRegisteredUserStatus(userId: string, active: boolean): void {
+  try {
+    const list = getRegisteredUsers().map((u) =>
+      u.id === userId ? { ...u, is_active: active } : u,
+    );
+    localStorage.setItem("tp.registered_users", JSON.stringify(list));
+  } catch (e) {
+    console.error("Failed to update registered user status", e);
+  }
+}
+
+export function updateRegisteredUserRole(userId: string, role: string): void {
+  try {
+    const list = getRegisteredUsers().map((u) =>
+      u.id === userId ? { ...u, role: role as any } : u,
+    );
+    localStorage.setItem("tp.registered_users", JSON.stringify(list));
+  } catch (e) {
+    console.error("Failed to update registered user role", e);
+  }
+}
+
+export function removeRegisteredUser(userId: string): void {
+  try {
+    const list = getRegisteredUsers().filter((u) => u.id !== userId);
+    localStorage.setItem("tp.registered_users", JSON.stringify(list));
+  } catch (e) {
+    console.error("Failed to remove registered user", e);
+  }
+}
+
+
 export const endpoints = {
   login: async (email: string, password: string, totp_code?: string): Promise<Tokens> => {
     try {
@@ -653,5 +685,47 @@ export const endpoints = {
       }),
     );
   },
+
+  activateUser: (userId: string): Promise<User> => {
+    updateRegisteredUserStatus(userId, true);
+    return withFallback(
+      () => api.post<User>(`/users/${userId}/activate`),
+      () => {
+        const u = getRegisteredUsers().find((x) => x.id === userId);
+        return u || ({ id: userId, is_active: true } as User);
+      },
+    );
+  },
+
+  deactivateUser: (userId: string): Promise<User> => {
+    updateRegisteredUserStatus(userId, false);
+    return withFallback(
+      () => api.post<User>(`/users/${userId}/deactivate`),
+      () => {
+        const u = getRegisteredUsers().find((x) => x.id === userId);
+        return u || ({ id: userId, is_active: false } as User);
+      },
+    );
+  },
+
+  updateUserRole: (userId: string, role: string): Promise<User> => {
+    updateRegisteredUserRole(userId, role);
+    return withFallback(
+      () => api.post<User>(`/users/${userId}/role`, { role }),
+      () => {
+        const u = getRegisteredUsers().find((x) => x.id === userId);
+        return u || ({ id: userId, role } as any);
+      },
+    );
+  },
+
+  deleteUser: (userId: string): Promise<{ status: string }> => {
+    removeRegisteredUser(userId);
+    return withFallback(
+      () => api.delete<{ status: string }>(`/users/${userId}`),
+      () => ({ status: "deleted" }),
+    );
+  },
 };
+
 

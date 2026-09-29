@@ -50,3 +50,14 @@ class UserService:
         user.is_active = active
         await self.db.flush()
         return user
+
+    async def set_role(self, user_id: str, new_role: Role) -> UserModel:
+        user = await self.get(user_id)
+        user.role = str(new_role)
+        await self.db.flush()
+        return user
+
+    async def delete(self, user_id: str) -> None:
+        user = await self.get(user_id)
+        await self.repo.delete(user)
+

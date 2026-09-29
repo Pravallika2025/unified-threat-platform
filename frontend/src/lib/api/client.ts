@@ -108,6 +108,8 @@ export const api = {
       method: "POST",
       body: body === undefined ? undefined : JSON.stringify(body),
     }),
+  delete: <T>(path: string, options?: RequestInit) =>
+    request<T>(path, { ...options, method: "DELETE" }),
   upload: <T>(path: string, form: FormData) =>
     request<T>(path, { method: "POST", body: form }),
   download: async (path: string, fallbackFilename: string) => {
