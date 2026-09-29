@@ -35,16 +35,32 @@
 | [**Open Vercel App ↗**](https://frontend-phi-indol-81.vercel.app)<br/>`https://frontend-phi-indol-81.vercel.app` | [**Open Swagger UI ↗**](https://frontend-phi-indol-81.vercel.app/docs)<br/>`https://frontend-phi-indol-81.vercel.app/docs` | [**Open GitHub Pages ↗**](https://pravallika2025.github.io/unified-threat-platform/)<br/>`https://pravallika2025.github.io/unified-threat-platform/` |
 | **Status:** 🟢 100% Online (24/7 Cloud) | **Status:** 🟢 100% Online (Interactive API) | **Status:** 🟢 100% Online (GitHub CDN) |
 
-### 💻 Localhost (After Running `start.bat` Locally)
+### 💻 Localhost (Active Locally)
 
 > [!NOTE]
-> These links only work on the machine where `start.bat` (or Docker) is actively running. Click them after launching the platform locally.
+> Localhost servers are active when launched via `start.bat`. Both services are running:
 
 | 🌐 Frontend UI | 📑 Backend Swagger Docs | 📖 Backend ReDoc |
 | :---: | :---: | :---: |
 | [**http://localhost:5173**](http://localhost:5173) | [**http://localhost:8000/docs**](http://localhost:8000/docs) | [**http://localhost:8000/redoc**](http://localhost:8000/redoc) |
 | React + TypeScript SOC Dashboard | Interactive FastAPI Swagger UI | ReDoc Alternative API Reference |
 | 🔑 Login: `admin@threatplatform.dev` / `Admin@12345` | 44 REST API endpoints | Full OpenAPI 3.1 spec |
+
+---
+
+## 🧭 Step-by-Step Repository Architecture & Directory Guide
+> 📖 *For the complete implementation breakdown, see [`STEP_BY_STEP_GUIDE.md`](STEP_BY_STEP_GUIDE.md).*
+
+| Step | Component / Module | Directory / Files | Purpose & Functionality |
+| :---: | :--- | :--- | :--- |
+| **STEP 1** | **Academic Flashcard & Specs** | [`docs/`](docs/) | HTML Web Flashcard, Printable A4 PDF, High-Res Poster |
+| **STEP 2** | **Threat Ingestion & Detection Rules** | [`detection-content/`](detection-content/) | YAML attack signatures, Sigma detection rules (Brute Force, Canary, Ransomware) |
+| **STEP 3** | **Backend REST API Core** | [`backend/`](backend/) | FastAPI async backend, Pydantic v2 schemas, Argon2 password hashing, JWT Auth |
+| **STEP 4** | **Machine Learning & Risk Engine** | [`backend/app/modules/analytics/`](backend/app/modules/analytics/) | Dynamic risk scoring ($W_1 \cdot \text{Rule} + W_2 \cdot \text{Asset} + W_3 \cdot Z$), Kill-Chain correlation |
+| **STEP 5** | **Cryptographic Audit Trail** | [`backend/app/modules/audit/`](backend/app/modules/audit/) | Tamper-evident SHA-256 hash-chaining ($H_n = \text{SHA-256}(R_n \parallel H_{n-1})$), compliance export |
+| **STEP 6** | **Real-Time SMTP Alert Protocol** | [`backend/app/modules/notifications/`](backend/app/modules/notifications/) | 3-channel alert delivery (WebSocket live push, Gmail SMTP, Webhook) |
+| **STEP 7** | **Frontend SOC Defense Console** | [`frontend/`](frontend/) | React 18, Vite, Tailwind CSS, Operator Governance, SMTP Modal, Gemini AI |
+| **STEP 8** | **One-Click Launch & CI/CD** | [`start.bat`](start.bat), [`.github/workflows/`](.github/workflows/) | Automatic zero-config desktop launcher & GitHub Pages automated deployment |
 
 ---
 
