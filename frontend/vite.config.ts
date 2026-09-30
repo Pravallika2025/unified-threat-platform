@@ -8,9 +8,9 @@ export default defineConfig(({ command, mode }) => {
   // When deploying to Vercel, the app lives at root "/".
   // When deploying to GitHub Pages, the app lives at "/unified-threat-platform/".
   const isVercel = Boolean(process.env.VERCEL || env.VERCEL || process.env.VERCEL_ENV);
-  const base =
-    env.VITE_BASE_PATH ??
-    (isVercel ? "/" : (command === "build" && !env.VITE_API_URL ? "/unified-threat-platform/" : "/"));
+  const base = isVercel
+    ? "/"
+    : (env.VITE_BASE_PATH ?? (command === "build" && !env.VITE_API_URL ? "/unified-threat-platform/" : "/"));
 
   return {
     base,
