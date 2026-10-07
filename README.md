@@ -22,15 +22,27 @@
 > [!TIP]
 > All links and QR codes below are verified 100% active. Cloud links work globally on any device. Localhost links work only when the platform is running locally via `start.bat`.
 
-### 🎓 Academic Project Flash Cards & Case Study Base Paper
-- 📄 **Case Study Base Paper (PDF):** [`docs/ApexFin_Corp_Case_Study.pdf`](docs/ApexFin_Corp_Case_Study.pdf)
-- 📝 **Case Study Base Paper (Word .docx):** [`docs/ApexFin_Corp_Case_Study.docx`](docs/ApexFin_Corp_Case_Study.docx)
-- 🌐 **Case Study Base Paper (HTML):** [`docs/ApexFin_Corp_Case_Study.html`](docs/ApexFin_Corp_Case_Study.html)
-- 📊 **Two Projects Difference Flash Card (PDF):** [`docs/two_projects_difference_flash_card.pdf`](docs/two_projects_difference_flash_card.pdf)
-- 📝 **Two Projects Difference Flash Card (Word .docx):** [`docs/Two_Projects_Difference_Flash_Card.docx`](docs/Two_Projects_Difference_Flash_Card.docx)
-- 🖼️ **Two Projects Difference Flash Card (Image):** [`docs/two_projects_difference_flash_card.png`](docs/two_projects_difference_flash_card.png)
-- 🖨️ **Capstone Presentation Flash Card (Web):** [`docs/project_flash_card.html`](docs/project_flash_card.html)
-- 📄 **Capstone Presentation Flash Card (PDF):** [`docs/project_flash_card.pdf`](docs/project_flash_card.pdf)
+### 📚 Project Base Paper & Complete Academic Documentation (Full PDFs)
+
+> [!IMPORTANT]
+> The complete academic research base paper, 100-page project dissertation, and case study technical reports are provided below in complete PDF and Word formats (NOT just summaries or flashcards):
+
+- 📑 **Complete Project Research Base Paper (14-Page Full PDF):** [`docs/Base_Paper_Cyber_Threat_Detection_SentinelGPT.pdf`](docs/Base_Paper_Cyber_Threat_Detection_SentinelGPT.pdf)
+  - **Title:** *SentinelGPT: An AI-Powered Large Language Model Framework for Advanced Cyber Threat Detection and Analysis*
+  - **Author / Candidate:** Pravallika Kalangi (24VV1F0044) • JNTU-GV College of Engineering
+  - **Contents:** Full 14-page research paper detailing Problem Statement, Architectural Flows, Multi-Agent Autonomous Threat Pipeline, Algorithms, Mathematical Risk Models, and Benchmarks.
+- 📚 **Complete Major Capstone Project Dissertation (100-Page Full PDF):** [`docs/FINAL_PROJECT_100_PAGES.pdf`](docs/FINAL_PROJECT_100_PAGES.pdf)
+  - **Contents:** Full comprehensive 100-page academic report with certificates, department approvals, system architecture, UML specifications, test cases, and deployment evidence.
+- 📄 **ApexFin Corp Multi-Stage Breach Case Study Paper (Full PDF):** [`docs/ApexFin_Corp_Case_Study.pdf`](docs/ApexFin_Corp_Case_Study.pdf)
+- 📝 **ApexFin Corp Case Study Base Paper (Word .docx):** [`docs/ApexFin_Corp_Case_Study.docx`](docs/ApexFin_Corp_Case_Study.docx)
+- 🌐 **ApexFin Corp Case Study Base Paper (Interactive HTML):** [`docs/ApexFin_Corp_Case_Study.html`](docs/ApexFin_Corp_Case_Study.html)
+
+### 📊 Comparative Defense Flashcards & Evaluation Matrices (Supplemental)
+- 📊 **Two Projects Difference Flashcard (PDF):** [`docs/two_projects_difference_flash_card.pdf`](docs/two_projects_difference_flash_card.pdf)
+- 📝 **Two Projects Difference Flashcard (Word .docx):** [`docs/Two_Projects_Difference_Flash_Card.docx`](docs/Two_Projects_Difference_Flash_Card.docx)
+- 🖼️ **Two Projects Difference Flashcard (High-Res Image):** [`docs/two_projects_difference_flash_card.png`](docs/two_projects_difference_flash_card.png)
+- 🖨️ **Capstone Presentation Flashcard (Web):** [`docs/project_flash_card.html`](docs/project_flash_card.html)
+- 📄 **Capstone Presentation Flashcard (PDF):** [`docs/project_flash_card.pdf`](docs/project_flash_card.pdf)
 
 ### 📐 End-to-End Architectural Workflows & Flowcharts
 - 🖼️ **1 → 28 Step-by-Step Flow & Tech Stack:** [`docs/workflow_28_steps_architecture.jpg`](docs/workflow_28_steps_architecture.jpg)
