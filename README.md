@@ -22,20 +22,22 @@
 > [!TIP]
 > All links and QR codes below are verified 100% active. Cloud links work globally on any device. Localhost links work only when the platform is running locally via `start.bat`.
 
-### 📚 Project Base Paper & Complete Academic Documentation (Full PDFs)
+### 📚 Project Case Study Base Paper & Complete Academic Dissertation (Full PDFs)
 
 > [!IMPORTANT]
-> The complete academic research base paper, 100-page project dissertation, and case study technical reports are provided below in complete PDF and Word formats (NOT just summaries or flashcards):
+> The complete academic research Case Study Base Paper, 100-page project dissertation, and technical documentation are provided below in complete PDF and Word formats (NOT as flashcards):
 
-- 📑 **Complete Project Research Base Paper (14-Page Full PDF):** [`docs/Base_Paper_Cyber_Threat_Detection_SentinelGPT.pdf`](docs/Base_Paper_Cyber_Threat_Detection_SentinelGPT.pdf)
-  - **Title:** *SentinelGPT: An AI-Powered Large Language Model Framework for Advanced Cyber Threat Detection and Analysis*
-  - **Author / Candidate:** Pravallika Kalangi (24VV1F0044) • JNTU-GV College of Engineering
-  - **Contents:** Full 14-page research paper detailing Problem Statement, Architectural Flows, Multi-Agent Autonomous Threat Pipeline, Algorithms, Mathematical Risk Models, and Benchmarks.
-- 📚 **Complete Major Capstone Project Dissertation (100-Page Full PDF):** [`docs/FINAL_PROJECT_100_PAGES.pdf`](docs/FINAL_PROJECT_100_PAGES.pdf)
-  - **Contents:** Full comprehensive 100-page academic report with certificates, department approvals, system architecture, UML specifications, test cases, and deployment evidence.
-- 📄 **ApexFin Corp Multi-Stage Breach Case Study Paper (Full PDF):** [`docs/ApexFin_Corp_Case_Study.pdf`](docs/ApexFin_Corp_Case_Study.pdf)
+- 📑 **Complete Case Study Base Paper (Full Research PDF):** [`docs/ApexFin_Corp_Case_Study.pdf`](docs/ApexFin_Corp_Case_Study.pdf)
+  - **Title:** *Real-World Case Study: ApexFin Corp Multi-Stage Breach & Autonomous Incident Containment*
+  - **Subtitle:** *An End-to-End Evaluation of Unified Multi-Environment Telemetry, Graph Correlation, and Approval-Gated SOAR*
+  - **Project Name:** **Unified Multi-Environment Cyber Threat Detection & Response Platform**
+  - **Author / Candidate:** Pravallika Kalangi (Roll No: 24VV1F0044) • JNTU-GV College of Engineering, Vizianagaram
+  - **Supervisor / Guide:** Dr. G. Jaya Suma, Ph.D, Professor
+  - **Contents:** Complete multi-page academic research paper detailing the 7-stage MITRE kill-chain attack against ApexFin Corp (250,000 records targeted), legacy SIEM failure mode analysis (1,400+ uncoordinated alerts, MTTR 7.5 hours), mathematical risk vector equations, approval-gated SOAR containment (1m 42s), cryptographic SHA-256 Merkle hash ledger proofs, and empirical benchmark evaluations.
 - 📝 **ApexFin Corp Case Study Base Paper (Word .docx):** [`docs/ApexFin_Corp_Case_Study.docx`](docs/ApexFin_Corp_Case_Study.docx)
 - 🌐 **ApexFin Corp Case Study Base Paper (Interactive HTML):** [`docs/ApexFin_Corp_Case_Study.html`](docs/ApexFin_Corp_Case_Study.html)
+- 📚 **Complete Major Capstone Project Dissertation (100-Page Full PDF):** [`docs/FINAL_PROJECT_100_PAGES.pdf`](docs/FINAL_PROJECT_100_PAGES.pdf)
+  - **Contents:** Full comprehensive 100-page academic report with certificates, department approvals, system architecture, UML specifications, test cases, and deployment evidence.
 
 ### 📊 Comparative Defense Flashcards & Evaluation Matrices (Supplemental)
 - 📊 **Two Projects Difference Flashcard (PDF):** [`docs/two_projects_difference_flash_card.pdf`](docs/two_projects_difference_flash_card.pdf)
