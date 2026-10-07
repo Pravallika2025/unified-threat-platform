@@ -22,10 +22,20 @@
 > [!TIP]
 > All links and QR codes below are verified 100% active. Cloud links work globally on any device. Localhost links work only when the platform is running locally via `start.bat`.
 
-### 🎓 Academic Project Flash Card & Poster
-- 🖨️ **Interactive Web Flash Card:** [`docs/project_flash_card.html`](docs/project_flash_card.html)
-- 📄 **Printable Presentation PDF:** [`docs/project_flash_card.pdf`](docs/project_flash_card.pdf)
-- 🖼️ **Full-Resolution Poster Image:** [`docs/project_flash_card.png`](docs/project_flash_card.png)
+### 🎓 Academic Project Flash Cards & Case Study Base Paper
+- 📄 **Case Study Base Paper (PDF):** [`docs/ApexFin_Corp_Case_Study.pdf`](docs/ApexFin_Corp_Case_Study.pdf)
+- 📝 **Case Study Base Paper (Word .docx):** [`docs/ApexFin_Corp_Case_Study.docx`](docs/ApexFin_Corp_Case_Study.docx)
+- 🌐 **Case Study Base Paper (HTML):** [`docs/ApexFin_Corp_Case_Study.html`](docs/ApexFin_Corp_Case_Study.html)
+- 📊 **Two Projects Difference Flash Card (PDF):** [`docs/two_projects_difference_flash_card.pdf`](docs/two_projects_difference_flash_card.pdf)
+- 📝 **Two Projects Difference Flash Card (Word .docx):** [`docs/Two_Projects_Difference_Flash_Card.docx`](docs/Two_Projects_Difference_Flash_Card.docx)
+- 🖼️ **Two Projects Difference Flash Card (Image):** [`docs/two_projects_difference_flash_card.png`](docs/two_projects_difference_flash_card.png)
+- 🖨️ **Capstone Presentation Flash Card (Web):** [`docs/project_flash_card.html`](docs/project_flash_card.html)
+- 📄 **Capstone Presentation Flash Card (PDF):** [`docs/project_flash_card.pdf`](docs/project_flash_card.pdf)
+
+### 📐 End-to-End Architectural Workflows & Flowcharts
+- 🖼️ **1 → 28 Step-by-Step Flow & Tech Stack:** [`docs/workflow_28_steps_architecture.jpg`](docs/workflow_28_steps_architecture.jpg)
+- 🖼️ **Log Upload → Processing → Threat Analysis → Dashboard:** [`docs/log_upload_processing_flow.jpg`](docs/log_upload_processing_flow.jpg)
+- 🖼️ **Comparative Flashcard (ApexFin vs Unified Platform):** [`docs/two_projects_difference_flash_card.png`](docs/two_projects_difference_flash_card.png)
 
 ### 🌐 Cloud (Works Anywhere — No Setup Required)
 
@@ -35,16 +45,20 @@
 | [**Open Vercel App ↗**](https://frontend-phi-indol-81.vercel.app)<br/>`https://frontend-phi-indol-81.vercel.app` | [**Open Swagger UI ↗**](https://frontend-phi-indol-81.vercel.app/docs)<br/>`https://frontend-phi-indol-81.vercel.app/docs` | [**Open GitHub Pages ↗**](https://pravallika2025.github.io/unified-threat-platform/)<br/>`https://pravallika2025.github.io/unified-threat-platform/` |
 | **Status:** 🟢 100% Online (24/7 Cloud) | **Status:** 🟢 100% Online (Interactive API) | **Status:** 🟢 100% Online (GitHub CDN) |
 
-### 💻 Localhost (Active Locally)
+### 💻 Localhost (1-Click Local Execution)
 
-> [!NOTE]
-> Localhost servers are active when launched via `start.bat`. Both services are running:
+> [!IMPORTANT]
+> **How to run locally:**
+> 1. Double-click `start.bat` (or run `.\start.bat` in terminal).
+> 2. Both backend and frontend boot up automatically in dedicated consoles.
+> 3. Your browser automatically opens `http://localhost:5173` and `http://localhost:8000/docs`.
+> 4. If any port is blocked, double-click `stop.bat` to release ports 8000/5173 and retry.
 
-| 🌐 Frontend UI | 📑 Backend Swagger Docs | 📖 Backend ReDoc |
-| :---: | :---: | :---: |
-| [**http://localhost:5173**](http://localhost:5173) | [**http://localhost:8000/docs**](http://localhost:8000/docs) | [**http://localhost:8000/redoc**](http://localhost:8000/redoc) |
-| React + TypeScript SOC Dashboard | Interactive FastAPI Swagger UI | ReDoc Alternative API Reference |
-| 🔑 Login: `admin@threatplatform.dev` / `Admin@12345` | 44 REST API endpoints | Full OpenAPI 3.1 spec |
+| 🌐 Frontend UI | 📑 Backend Swagger Docs | 🩺 Backend Health Check | 📖 Backend ReDoc |
+| :---: | :---: | :---: | :---: |
+| [**http://localhost:5173**](http://localhost:5173) | [**http://localhost:8000/docs**](http://localhost:8000/docs) | [**http://localhost:8000/health**](http://localhost:8000/health) | [**http://localhost:8000/redoc**](http://localhost:8000/redoc) |
+| React + TypeScript SOC Dashboard | Interactive FastAPI Swagger UI | Realtime Service Health JSON | ReDoc Alternative Reference |
+| 🔑 `admin@threatplatform.dev` / `Admin@12345` | Auto-redirect from `http://localhost:8000` | `{"status": "healthy"}` | Full OpenAPI 3.1 schema |
 
 ---
 

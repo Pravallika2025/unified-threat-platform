@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 
 from app.api.v1.router import api_router
 from app.core.config import settings
@@ -71,6 +72,25 @@ def create_app() -> FastAPI:
     app.add_middleware(RequestIdMiddleware)
 
     register_exception_handlers(app)
+
+    @app.get("/", include_in_schema=False)
+    async def root():
+        """Redirect browser to interactive Swagger documentation."""
+        return RedirectResponse(url="/docs")
+
+    @app.get("/health", tags=["System"])
+    @app.get(f"{settings.API_V1_PREFIX}/health", tags=["System"])
+    async def health_check():
+        """Health check endpoint for monitoring."""
+        return {
+            "status": "healthy",
+            "app": settings.APP_NAME,
+            "environment": settings.ENVIRONMENT,
+            "version": "0.1.0",
+            "docs": "/docs",
+            "redoc": "/redoc",
+            "frontend": "http://localhost:5173",
+        }
 
     app.include_router(api_router, prefix=settings.API_V1_PREFIX)
     app.include_router(ws_routes.router)
